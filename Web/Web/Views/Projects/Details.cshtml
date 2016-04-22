@@ -1,0 +1,138 @@
+﻿@model Web.DAL.Project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificProjects)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecificProjects)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuitableSubjects)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuitableSubjects)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cause)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cause)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuitableLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuitableLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skills)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skills)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeRequired)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeRequired)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Impact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Impact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KeyContacts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KeyContacts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherContacts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherContacts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Source)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Source)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuggestedReading)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuggestedReading)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
