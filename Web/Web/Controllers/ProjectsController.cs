@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Web.DAL;
 
 namespace Web.Controllers
@@ -18,6 +19,7 @@ namespace Web.Controllers
         // GET: Projects
         public ActionResult Index()
         {
+            Roles.IsUserInRole(User.Identity.Name, "administrator");
             var projects = db.Projects.Include(p => p.AspNetUser);
             return View(projects.ToList());
         }
