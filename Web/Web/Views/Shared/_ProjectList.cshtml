@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Web.DAL.Project>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectArea)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecificProjects)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Impact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SuitableLevel.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skills)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SourceLink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SuggestedReading)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SuggestedMethods)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cause.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SuitableSubject.Description)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectArea)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecificProjects)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Impact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SuitableLevel.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Skills)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SourceLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SuggestedReading)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SuggestedMethods)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsApproved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AspNetUsers.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cause.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SuitableSubject.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

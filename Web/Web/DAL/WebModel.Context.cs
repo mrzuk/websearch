@@ -29,8 +29,9 @@ namespace Web.DAL
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<Cause> Cause { get; set; }
         public virtual DbSet<SuitableSubject> SuitableSubject { get; set; }
+        public virtual DbSet<SuitableLevel> SuitableLevel { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
     }
 }

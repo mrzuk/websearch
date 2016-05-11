@@ -69,7 +69,7 @@
     <Property Name="Impact" Type="nvarchar(max)" Nullable="false" />
     <Property Name="SuitableSubjectId" Type="int" Nullable="false" />
     <Property Name="CauseId" Type="int" Nullable="false" />
-    <Property Name="SuitableLevel" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SuitableLevelId" Type="int" Nullable="false" />
     <Property Name="Skills" Type="nvarchar(max)" />
     <Property Name="SourceLink" Type="nvarchar(max)" />
     <Property Name="SuggestedReading" Type="nvarchar(max)" />
@@ -77,6 +77,13 @@
     <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="IsApproved" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SuitableLevel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="SuitableSubject">
     <Key>
@@ -165,6 +172,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_dbo_Project_SuitableSubject_SuitablelevelId">
+    <End Role="SuitableLevel" Type="Self.SuitableLevel" Multiplicity="1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SuitableLevel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="SuitableLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_Project_SuitableSubject_SuitableSubjectId">
     <End Role="SuitableSubject" Type="Self.SuitableSubject" Multiplicity="1" />
     <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -185,6 +204,7 @@
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cause" EntityType="Self.Cause" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SuitableLevel" EntityType="Self.SuitableLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SuitableSubject" EntityType="Self.SuitableSubject" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -208,6 +228,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_dbo_Project_Cause_CauseId" Association="Self.FK_dbo_Project_Cause_CauseId">
       <End Role="Cause" EntitySet="Cause" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitablelevelId" Association="Self.FK_dbo_Project_SuitableSubject_SuitablelevelId">
+      <End Role="SuitableLevel" EntitySet="SuitableLevel" />
       <End Role="Project" EntitySet="Project" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitableSubjectId" Association="Self.FK_dbo_Project_SuitableSubject_SuitableSubjectId">

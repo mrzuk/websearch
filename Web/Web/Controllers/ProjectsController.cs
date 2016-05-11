@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Web.DAL;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Web.Models.View;
 
 namespace Web.Controllers
 {
@@ -17,18 +18,33 @@ namespace Web.Controllers
     {
         private WebDbEntities1 db = new WebDbEntities1();
 
-
-        // GET: Projects
-        public ActionResult Index()
+        public ActionResult Index(List<Project> projects = null)
         {
-            var project = db.Project.Include(p => p.AspNetUsers).Include(p => p.Cause).Include(p => p.SuitableSubject).Where(p=> !p.IsApproved);
-            return View(project.ToList());
+            if (projects == null)
+            {
+                projects = db.Project.Include(p => p.AspNetUsers).Include(p => p.Cause).Include(p => p.SuitableSubject).Include(p=>p.SuitableLevel).Where(p => !p.IsApproved).ToList();
+               
+            }
+            else
+            {
+                if (projects.Count() == 0)
+                    RedirectToAction("Search");
+            }
+            return View(projects);
         }
 
         public ActionResult Search()
         {
-            
-            return View();
+            ProjectSearch search = new ProjectSearch();
+            return View("",search);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(ProjectSearch project)
+        {
+            List<Project> projects = db.Project.Include(c => c.Cause).Where(p => p.Cause.Description.ToLower().Contains(project.Cause.ToLower()) && p.SuitableSubject.Description.ToLower().Contains(project.Subject.ToLower())).Select(p => p).ToList();
+            return PartialView("~/Views/Shared/_ProjectList",projects);
         }
 
         // GET: Projects/Details/5
@@ -53,6 +69,7 @@ namespace Web.Controllers
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
             ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description");
             ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description");
+            ViewBag.SuitableLevelId = new SelectList(db.SuitableLevel, "Id", "Description");
             return View();
         }
 
@@ -61,7 +78,7 @@ namespace Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,Impact,SuitableSubjectId,CauseId,SuitableLevel,Skills,SourceLink,SuggestedReading,SuggestedMethods,UserId,Date,IsApproved")] Project project)
+        public ActionResult Create([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,Impact,SuitableSubjectId,CauseId,SuitableLevelId,Skills,SourceLink,SuggestedReading,SuggestedMethods,UserId,Date,IsApproved")] Project project)
         {
             string userId= User.Identity.GetUserId();
             if (ModelState.IsValid)

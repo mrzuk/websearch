@@ -99,15 +99,20 @@
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="Cause" EntityType="WebDbModel.Cause" />
+    <EntitySet Name="SuitableSubject" EntityType="WebDbModel.SuitableSubject" />
+    <EntitySet Name="SuitableLevel" EntityType="WebDbModel.SuitableLevel" />
     <EntitySet Name="Project" EntityType="WebDbModel.Project" />
     <AssociationSet Name="FK_dbo_Project_AspNetUsers_UserId" Association="WebDbModel.FK_dbo_Project_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Project" EntitySet="Project" />
     </AssociationSet>
-    <EntitySet Name="Cause" EntityType="WebDbModel.Cause" />
-    <EntitySet Name="SuitableSubject" EntityType="WebDbModel.SuitableSubject" />
     <AssociationSet Name="FK_dbo_Project_Cause_CauseId" Association="WebDbModel.FK_dbo_Project_Cause_CauseId">
       <End Role="Cause" EntitySet="Cause" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitablelevelId" Association="WebDbModel.FK_dbo_Project_SuitableSubject_SuitablelevelId">
+      <End Role="SuitableLevel" EntitySet="SuitableLevel" />
       <End Role="Project" EntitySet="Project" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitableSubjectId" Association="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId">
@@ -115,41 +120,6 @@
       <End Role="Project" EntitySet="Project" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Project">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ProjectArea" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SpecificProjects" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Impact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="SuitableSubjectId" Type="Int32" Nullable="false" />
-    <Property Name="CauseId" Type="Int32" Nullable="false" />
-    <Property Name="SuitableLevel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SourceLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SuggestedReading" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="SuggestedMethods" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="AspNetUsers" Relationship="WebDbModel.FK_dbo_Project_AspNetUsers_UserId" FromRole="Project" ToRole="AspNetUsers" />
-    <NavigationProperty Name="Cause" Relationship="WebDbModel.FK_dbo_Project_Cause_CauseId" FromRole="Project" ToRole="Cause" />
-    <NavigationProperty Name="SuitableSubject" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId" FromRole="Project" ToRole="SuitableSubject" />
-  </EntityType>
-  <Association Name="FK_dbo_Project_AspNetUsers_UserId">
-    <End Type="WebDbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-    <End Type="WebDbModel.Project" Role="Project" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Project">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="Cause">
     <Key>
       <PropertyRef Name="Id" />
@@ -166,6 +136,50 @@
     <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId" FromRole="SuitableSubject" ToRole="Project" />
   </EntityType>
+  <EntityType Name="SuitableLevel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitablelevelId" FromRole="SuitableLevel" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectArea" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SpecificProjects" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Impact" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SuitableSubjectId" Type="Int32" Nullable="false" />
+    <Property Name="CauseId" Type="Int32" Nullable="false" />
+    <Property Name="SuitableLevelId" Type="Int32" Nullable="false" />
+    <Property Name="Skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SourceLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SuggestedReading" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SuggestedMethods" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebDbModel.FK_dbo_Project_AspNetUsers_UserId" FromRole="Project" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Cause" Relationship="WebDbModel.FK_dbo_Project_Cause_CauseId" FromRole="Project" ToRole="Cause" />
+    <NavigationProperty Name="SuitableLevel" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitablelevelId" FromRole="Project" ToRole="SuitableLevel" />
+    <NavigationProperty Name="SuitableSubject" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId" FromRole="Project" ToRole="SuitableSubject" />
+  </EntityType>
+  <Association Name="FK_dbo_Project_AspNetUsers_UserId">
+    <End Type="WebDbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+    <End Type="WebDbModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_Project_Cause_CauseId">
     <End Type="WebDbModel.Cause" Role="Cause" Multiplicity="1" />
     <End Type="WebDbModel.Project" Role="Project" Multiplicity="*" />
@@ -175,6 +189,18 @@
       </Principal>
       <Dependent Role="Project">
         <PropertyRef Name="CauseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Project_SuitableSubject_SuitablelevelId">
+    <End Type="WebDbModel.SuitableLevel" Role="SuitableLevel" Multiplicity="1" />
+    <End Type="WebDbModel.Project" Role="Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SuitableLevel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="SuitableLevelId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

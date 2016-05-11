@@ -7,7 +7,9 @@ namespace Web.Models.View
 {
     public class ProjectSearch
     {
+        public string Cause { get; set; }
 
+        public string Subject { get; set; }
 
     }
 }

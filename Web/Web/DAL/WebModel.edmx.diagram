@@ -12,11 +12,13 @@
         <AssociationConnector Association="WebDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="WebDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="WebDbModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="WebDbModel.Project" Width="1.5" PointX="8.25" PointY="5.5" />
-        <AssociationConnector Association="WebDbModel.FK_dbo_Project_AspNetUsers_UserId" />
         <EntityTypeShape EntityType="WebDbModel.Cause" Width="1.5" PointX="6.375" PointY="10" />
         <EntityTypeShape EntityType="WebDbModel.SuitableSubject" Width="1.5" PointX="10.75" PointY="1.375" />
+        <EntityTypeShape EntityType="WebDbModel.SuitableLevel" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="WebDbModel.Project" Width="1.5" PointX="13" PointY="3.875" />
+        <AssociationConnector Association="WebDbModel.FK_dbo_Project_AspNetUsers_UserId" />
         <AssociationConnector Association="WebDbModel.FK_dbo_Project_Cause_CauseId" />
+        <AssociationConnector Association="WebDbModel.FK_dbo_Project_SuitableSubject_SuitablelevelId" />
         <AssociationConnector Association="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId" />
       </Diagram>
     </edmx:Diagrams>

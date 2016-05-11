@@ -54,27 +54,6 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="Project">
-      <EntityTypeMapping TypeName="WebDbModel.Project">
-        <MappingFragment StoreEntitySet="Project">
-          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="SuggestedMethods" ColumnName="SuggestedMethods" />
-          <ScalarProperty Name="SuggestedReading" ColumnName="SuggestedReading" />
-          <ScalarProperty Name="SourceLink" ColumnName="SourceLink" />
-          <ScalarProperty Name="Skills" ColumnName="Skills" />
-          <ScalarProperty Name="SuitableLevel" ColumnName="SuitableLevel" />
-          <ScalarProperty Name="CauseId" ColumnName="CauseId" />
-          <ScalarProperty Name="SuitableSubjectId" ColumnName="SuitableSubjectId" />
-          <ScalarProperty Name="Impact" ColumnName="Impact" />
-          <ScalarProperty Name="SpecificProjects" ColumnName="SpecificProjects" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Cause">
       <EntityTypeMapping TypeName="WebDbModel.Cause">
         <MappingFragment StoreEntitySet="Cause">
@@ -87,6 +66,35 @@
       <EntityTypeMapping TypeName="WebDbModel.SuitableSubject">
         <MappingFragment StoreEntitySet="SuitableSubject">
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SuitableLevel">
+      <EntityTypeMapping TypeName="WebDbModel.SuitableLevel">
+        <MappingFragment StoreEntitySet="SuitableLevel">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Project">
+      <EntityTypeMapping TypeName="WebDbModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="SuggestedMethods" ColumnName="SuggestedMethods" />
+          <ScalarProperty Name="SuggestedReading" ColumnName="SuggestedReading" />
+          <ScalarProperty Name="SourceLink" ColumnName="SourceLink" />
+          <ScalarProperty Name="Skills" ColumnName="Skills" />
+          <ScalarProperty Name="SuitableLevelId" ColumnName="SuitableLevelId" />
+          <ScalarProperty Name="CauseId" ColumnName="CauseId" />
+          <ScalarProperty Name="SuitableSubjectId" ColumnName="SuitableSubjectId" />
+          <ScalarProperty Name="Impact" ColumnName="Impact" />
+          <ScalarProperty Name="SpecificProjects" ColumnName="SpecificProjects" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
