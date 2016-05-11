@@ -11,26 +11,40 @@ namespace Web.DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Project
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Field is required")]
         public string ProjectArea { get; set; }
+
+        [Required(ErrorMessage ="Field is required")]
         public string Description { get; set; }
         public string SpecificProjects { get; set; }
-        public string SuitableSubjects { get; set; }
-        public string Cause { get; set; }
+
+        [Required(ErrorMessage = "Field is required")]
+        public string Impact { get; set; }
+
+        [Required(ErrorMessage = "Field is required")]
+        public int SuitableSubjectId { get; set; }
+
+        [Required(ErrorMessage = "Field is required")]
+        public int CauseId { get; set; }
+
+        [Required(ErrorMessage = "Field is required")]
         public string SuitableLevel { get; set; }
         public string Skills { get; set; }
-        public string TimeRequired { get; set; }
-        public string Impact { get; set; }
-        public string KeyContacts { get; set; }
-        public string OtherContacts { get; set; }
-        public string Source { get; set; }
+        public string SourceLink { get; set; }
         public string SuggestedReading { get; set; }
+        public string SuggestedMethods { get; set; }
+
         public string UserId { get; set; }
         public System.DateTime Date { get; set; }
+        public bool IsApproved { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Cause Cause { get; set; }
+        public virtual SuitableSubject SuitableSubject { get; set; }
     }
 }

@@ -6,22 +6,29 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Web.DAL;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace Web.Controllers
 {
     [Authorize]
-    public class ProjectsController : Controller
+    public class ProjectsController : BaseController
     {
-        private WebDbEntities db = new WebDbEntities();
+        private WebDbEntities1 db = new WebDbEntities1();
+
 
         // GET: Projects
         public ActionResult Index()
         {
-            Roles.IsUserInRole(User.Identity.Name, "administrator");
-            var projects = db.Projects.Include(p => p.AspNetUser);
-            return View(projects.ToList());
+            var project = db.Project.Include(p => p.AspNetUsers).Include(p => p.Cause).Include(p => p.SuitableSubject).Where(p=> !p.IsApproved);
+            return View(project.ToList());
+        }
+
+        public ActionResult Search()
+        {
+            
+            return View();
         }
 
         // GET: Projects/Details/5
@@ -31,7 +38,7 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project project = db.Project.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -42,7 +49,10 @@ namespace Web.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+            ViewBag.IsUserAdmin = UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName);
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description");
+            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description");
             return View();
         }
 
@@ -51,19 +61,25 @@ namespace Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,SuitableSubjects,Cause,SuitableLevel,Skills,TimeRequired,Impact,KeyContacts,OtherContacts,Source,SuggestedReading,UserId,Date")] Project project)
+        public ActionResult Create([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,Impact,SuitableSubjectId,CauseId,SuitableLevel,Skills,SourceLink,SuggestedReading,SuggestedMethods,UserId,Date,IsApproved")] Project project)
         {
+            string userId= User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                db.Projects.Add(project);
+                project.UserId = userId;
+                project.Date = DateTime.UtcNow;
+                db.Project.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", project.UserId);
+            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description", project.CauseId);
+            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description", project.SuitableSubjectId);
             return View(project);
         }
-
+        
+        [Authorize(Roles ="Admin")]
         // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -71,12 +87,14 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project project = db.Project.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
             }
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", project.UserId);
+            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description", project.CauseId);
+            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description", project.SuitableSubjectId);
             return View(project);
         }
 
@@ -85,7 +103,7 @@ namespace Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,SuitableSubjects,Cause,SuitableLevel,Skills,TimeRequired,Impact,KeyContacts,OtherContacts,Source,SuggestedReading,UserId,Date")] Project project)
+        public ActionResult Edit([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,Impact,SuitableSubjectId,CauseId,SuitableLevel,Skills,SourceLink,SuggestedReading,SuggestedMethods,UserId,Date,IsApproved")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -94,17 +112,20 @@ namespace Web.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", project.UserId);
+            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description", project.CauseId);
+            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description", project.SuitableSubjectId);
             return View(project);
         }
 
         // GET: Projects/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project project = db.Project.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -117,8 +138,8 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
+            Project project = db.Project.Find(id);
+            db.Project.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

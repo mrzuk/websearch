@@ -170,61 +170,70 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="DAL\AspNetRole.cs">
-      <DependentUpon>Entity.tt</DependentUpon>
+    <Compile Include="DAL\AspNetRoles.cs">
+      <DependentUpon>WebModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\AspNetUser.cs">
-      <DependentUpon>Entity.tt</DependentUpon>
+    <Compile Include="DAL\AspNetUserClaims.cs">
+      <DependentUpon>WebModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\AspNetUserClaim.cs">
-      <DependentUpon>Entity.tt</DependentUpon>
+    <Compile Include="DAL\AspNetUserLogins.cs">
+      <DependentUpon>WebModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\AspNetUserLogin.cs">
-      <DependentUpon>Entity.tt</DependentUpon>
+    <Compile Include="DAL\AspNetUsers.cs">
+      <DependentUpon>WebModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Entity.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entity.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Entity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Entity.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Entity.edmx</DependentUpon>
+    <Compile Include="DAL\Cause.cs">
+      <DependentUpon>WebModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Project.cs">
-      <DependentUpon>Entity.tt</DependentUpon>
+      <DependentUpon>WebModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\WebDbEntities.cs" />
+    <Compile Include="DAL\SuitableSubject.cs">
+      <DependentUpon>WebModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\WebModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\WebModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\WebModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\View\IsAdmin.cs" />
+    <Compile Include="Models\View\ProjectSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DAL\Entity.Context.tt">
+    <Content Include="DAL\WebModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entity.edmx</DependentUpon>
-      <LastGenOutput>Entity.Context.cs</LastGenOutput>
+      <DependentUpon>WebModel.edmx</DependentUpon>
+      <LastGenOutput>WebModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DAL\Entity.tt">
+    <Content Include="DAL\WebModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Entity.edmx</DependentUpon>
-      <LastGenOutput>Entity.cs</LastGenOutput>
+      <DependentUpon>WebModel.edmx</DependentUpon>
+      <LastGenOutput>WebModel.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -232,12 +241,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DAL\Entity.edmx">
+    <EntityDeploy Include="DAL\WebModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Entity.Designer.cs</LastGenOutput>
+      <LastGenOutput>WebModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DAL\Entity.edmx.diagram">
-      <DependentUpon>Entity.edmx</DependentUpon>
+    <Content Include="DAL\WebModel.edmx.diagram">
+      <DependentUpon>WebModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -290,9 +299,12 @@
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Shared\_IsAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
+    <Folder Include="Views\Layout\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
