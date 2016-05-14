@@ -10,3 +10,18 @@ INSERT INTO [dbo].[AspNetRoles] ([Id],[Name])
 VALUES (NEWID(),'Admin');
 
 INSERT INTO [dbo].[AspNetUserRoles] ([UserId],[RoleId]) VALUES ((SELECT [Id] from [dbo].[AspNetUsers] WHERE [UserName]='admin1@admin.com'),(SELECT [Id] from [dbo].[AspNetRoles] WHERE [Name]='Admin'));
+
+
+-- Cause
+
+INSERT INTO [dbo].[Cause] VALUES('Animal welfare');
+INSERT INTO [dbo].[Cause] VALUES('Global poverty');
+
+
+--Suitable Subject
+INSERT INTO [dbo].[SuitableSubject] VALUES('Psychology');
+INSERT INTO [dbo].[SuitableSubject] VALUES('Economics');
+
+--SuitableLevel
+INSERT INTO [dbo].[SuitableLevel] VALUES('Masters');
+INSERT INTO [dbo].[SuitableLevel] VALUES('Ph.D.');

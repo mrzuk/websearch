@@ -63,6 +63,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Cause_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="CauseId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Project">
           <Key>
             <PropertyRef Name="Id" />
@@ -72,9 +80,6 @@
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="SpecificProjects" Type="nvarchar(max)" />
           <Property Name="Impact" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="SuitableSubjectId" Type="int" Nullable="false" />
-          <Property Name="CauseId" Type="int" Nullable="false" />
-          <Property Name="SuitableLevelId" Type="int" Nullable="false" />
           <Property Name="Skills" Type="nvarchar(max)" />
           <Property Name="SourceLink" Type="nvarchar(max)" />
           <Property Name="SuggestedReading" Type="nvarchar(max)" />
@@ -82,6 +87,7 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="SuitableLevel">
           <Key>
@@ -90,12 +96,28 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="SuitableLevel_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SuitableLevelId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SuitableSubject">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SuitableSubjects_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SuitableSubjectId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -153,6 +175,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_Cause_Project_CauseId">
+          <End Role="Cause" Type="Self.Cause" Multiplicity="1" />
+          <End Role="Cause_Project" Type="Self.Cause_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cause">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cause_Project">
+              <PropertyRef Name="CauseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Cause_Project_ProjectId">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Cause_Project" Type="Self.Cause_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cause_Project">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Project_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -165,38 +211,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Project_Cause_CauseId">
-          <End Role="Cause" Type="Self.Cause" Multiplicity="1" />
-          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+        <Association Name="FK_dbo_SuitableLevel_Project_ProjectId">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="SuitableLevel_Project" Type="Self.SuitableLevel_Project" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cause">
+            <Principal Role="Project">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Project">
-              <PropertyRef Name="CauseId" />
+            <Dependent Role="SuitableLevel_Project">
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Project_SuitableSubject_SuitablelevelId">
+        <Association Name="FK_dbo_SuitableLevel_Project_SuitableLevelId">
           <End Role="SuitableLevel" Type="Self.SuitableLevel" Multiplicity="1" />
-          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <End Role="SuitableLevel_Project" Type="Self.SuitableLevel_Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SuitableLevel">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Project">
+            <Dependent Role="SuitableLevel_Project">
               <PropertyRef Name="SuitableLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Project_SuitableSubject_SuitableSubjectId">
+        <Association Name="FK_dbo_SuitableSubjects_Project_ProjectId">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="SuitableSubjects_Project" Type="Self.SuitableSubjects_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuitableSubjects_Project">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_SuitableSubjects_Project_SuitableSubjectId">
           <End Role="SuitableSubject" Type="Self.SuitableSubject" Multiplicity="1" />
-          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <End Role="SuitableSubjects_Project" Type="Self.SuitableSubjects_Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SuitableSubject">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Project">
+            <Dependent Role="SuitableSubjects_Project">
               <PropertyRef Name="SuitableSubjectId" />
             </Dependent>
           </ReferentialConstraint>
@@ -208,9 +266,12 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cause" EntityType="Self.Cause" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cause_Project" EntityType="Self.Cause_Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuitableLevel" EntityType="Self.SuitableLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuitableLevel_Project" EntityType="Self.SuitableLevel_Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuitableSubject" EntityType="Self.SuitableSubject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuitableSubjects_Project" EntityType="Self.SuitableSubjects_Project" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -227,21 +288,33 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_dbo_Cause_Project_CauseId" Association="Self.FK_dbo_Cause_Project_CauseId">
+            <End Role="Cause" EntitySet="Cause" />
+            <End Role="Cause_Project" EntitySet="Cause_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Cause_Project_ProjectId" Association="Self.FK_dbo_Cause_Project_ProjectId">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Cause_Project" EntitySet="Cause_Project" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Project_AspNetUsers_UserId" Association="Self.FK_dbo_Project_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Project" EntitySet="Project" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Project_Cause_CauseId" Association="Self.FK_dbo_Project_Cause_CauseId">
-            <End Role="Cause" EntitySet="Cause" />
+          <AssociationSet Name="FK_dbo_SuitableLevel_Project_ProjectId" Association="Self.FK_dbo_SuitableLevel_Project_ProjectId">
             <End Role="Project" EntitySet="Project" />
+            <End Role="SuitableLevel_Project" EntitySet="SuitableLevel_Project" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitablelevelId" Association="Self.FK_dbo_Project_SuitableSubject_SuitablelevelId">
+          <AssociationSet Name="FK_dbo_SuitableLevel_Project_SuitableLevelId" Association="Self.FK_dbo_SuitableLevel_Project_SuitableLevelId">
             <End Role="SuitableLevel" EntitySet="SuitableLevel" />
-            <End Role="Project" EntitySet="Project" />
+            <End Role="SuitableLevel_Project" EntitySet="SuitableLevel_Project" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitableSubjectId" Association="Self.FK_dbo_Project_SuitableSubject_SuitableSubjectId">
-            <End Role="SuitableSubject" EntitySet="SuitableSubject" />
+          <AssociationSet Name="FK_dbo_SuitableSubjects_Project_ProjectId" Association="Self.FK_dbo_SuitableSubjects_Project_ProjectId">
             <End Role="Project" EntitySet="Project" />
+            <End Role="SuitableSubjects_Project" EntitySet="SuitableSubjects_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_SuitableSubjects_Project_SuitableSubjectId" Association="Self.FK_dbo_SuitableSubjects_Project_SuitableSubjectId">
+            <End Role="SuitableSubject" EntitySet="SuitableSubject" />
+            <End Role="SuitableSubjects_Project" EntitySet="SuitableSubjects_Project" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -350,31 +423,46 @@
           <EntitySet Name="Cause" EntityType="WebDbModel.Cause" />
           <EntitySet Name="SuitableSubject" EntityType="WebDbModel.SuitableSubject" />
           <EntitySet Name="SuitableLevel" EntityType="WebDbModel.SuitableLevel" />
+          <EntitySet Name="Cause_Project" EntityType="WebDbModel.Cause_Project" />
           <EntitySet Name="Project" EntityType="WebDbModel.Project" />
+          <EntitySet Name="SuitableLevel_Project" EntityType="WebDbModel.SuitableLevel_Project" />
+          <EntitySet Name="SuitableSubjects_Project" EntityType="WebDbModel.SuitableSubjects_Project" />
           <AssociationSet Name="FK_dbo_Project_AspNetUsers_UserId" Association="WebDbModel.FK_dbo_Project_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Project" EntitySet="Project" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Project_Cause_CauseId" Association="WebDbModel.FK_dbo_Project_Cause_CauseId">
+          <AssociationSet Name="FK_dbo_Cause_Project_CauseId" Association="WebDbModel.FK_dbo_Cause_Project_CauseId">
             <End Role="Cause" EntitySet="Cause" />
-            <End Role="Project" EntitySet="Project" />
+            <End Role="Cause_Project" EntitySet="Cause_Project" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitablelevelId" Association="WebDbModel.FK_dbo_Project_SuitableSubject_SuitablelevelId">
+          <AssociationSet Name="FK_dbo_Cause_Project_ProjectId" Association="WebDbModel.FK_dbo_Cause_Project_ProjectId">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Cause_Project" EntitySet="Cause_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_SuitableLevel_Project_ProjectId" Association="WebDbModel.FK_dbo_SuitableLevel_Project_ProjectId">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="SuitableLevel_Project" EntitySet="SuitableLevel_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_SuitableSubjects_Project_ProjectId" Association="WebDbModel.FK_dbo_SuitableSubjects_Project_ProjectId">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="SuitableSubjects_Project" EntitySet="SuitableSubjects_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_SuitableLevel_Project_SuitableLevelId" Association="WebDbModel.FK_dbo_SuitableLevel_Project_SuitableLevelId">
             <End Role="SuitableLevel" EntitySet="SuitableLevel" />
-            <End Role="Project" EntitySet="Project" />
+            <End Role="SuitableLevel_Project" EntitySet="SuitableLevel_Project" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_Project_SuitableSubject_SuitableSubjectId" Association="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId">
+          <AssociationSet Name="FK_dbo_SuitableSubjects_Project_SuitableSubjectId" Association="WebDbModel.FK_dbo_SuitableSubjects_Project_SuitableSubjectId">
             <End Role="SuitableSubject" EntitySet="SuitableSubject" />
-            <End Role="Project" EntitySet="Project" />
+            <End Role="SuitableSubjects_Project" EntitySet="SuitableSubjects_Project" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Cause">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_Project_Cause_CauseId" FromRole="Cause" ToRole="Project" />
+          <NavigationProperty Name="Cause_Project" Relationship="WebDbModel.FK_dbo_Cause_Project_CauseId" FromRole="Cause" ToRole="Cause_Project" />
         </EntityType>
         <EntityType Name="SuitableSubject">
           <Key>
@@ -382,7 +470,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId" FromRole="SuitableSubject" ToRole="Project" />
+          <NavigationProperty Name="SuitableSubjects_Project" Relationship="WebDbModel.FK_dbo_SuitableSubjects_Project_SuitableSubjectId" FromRole="SuitableSubject" ToRole="SuitableSubjects_Project" />
         </EntityType>
         <EntityType Name="SuitableLevel">
           <Key>
@@ -390,7 +478,17 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitablelevelId" FromRole="SuitableLevel" ToRole="Project" />
+          <NavigationProperty Name="SuitableLevel_Project" Relationship="WebDbModel.FK_dbo_SuitableLevel_Project_SuitableLevelId" FromRole="SuitableLevel" ToRole="SuitableLevel_Project" />
+        </EntityType>
+        <EntityType Name="Cause_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="CauseId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cause" Relationship="WebDbModel.FK_dbo_Cause_Project_CauseId" FromRole="Cause_Project" ToRole="Cause" />
+          <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_Cause_Project_ProjectId" FromRole="Cause_Project" ToRole="Project" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -401,9 +499,6 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SpecificProjects" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Impact" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SuitableSubjectId" Type="Int32" Nullable="false" />
-          <Property Name="CauseId" Type="Int32" Nullable="false" />
-          <Property Name="SuitableLevelId" Type="Int32" Nullable="false" />
           <Property Name="Skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SourceLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SuggestedReading" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -412,9 +507,30 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsApproved" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="WebDbModel.FK_dbo_Project_AspNetUsers_UserId" FromRole="Project" ToRole="AspNetUsers" />
-          <NavigationProperty Name="Cause" Relationship="WebDbModel.FK_dbo_Project_Cause_CauseId" FromRole="Project" ToRole="Cause" />
-          <NavigationProperty Name="SuitableLevel" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitablelevelId" FromRole="Project" ToRole="SuitableLevel" />
-          <NavigationProperty Name="SuitableSubject" Relationship="WebDbModel.FK_dbo_Project_SuitableSubject_SuitableSubjectId" FromRole="Project" ToRole="SuitableSubject" />
+          <NavigationProperty Name="Cause_Project" Relationship="WebDbModel.FK_dbo_Cause_Project_ProjectId" FromRole="Project" ToRole="Cause_Project" />
+          <NavigationProperty Name="SuitableLevel_Project" Relationship="WebDbModel.FK_dbo_SuitableLevel_Project_ProjectId" FromRole="Project" ToRole="SuitableLevel_Project" />
+          <NavigationProperty Name="SuitableSubjects_Project" Relationship="WebDbModel.FK_dbo_SuitableSubjects_Project_ProjectId" FromRole="Project" ToRole="SuitableSubjects_Project" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SuitableLevel_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SuitableLevelId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_SuitableLevel_Project_ProjectId" FromRole="SuitableLevel_Project" ToRole="Project" />
+          <NavigationProperty Name="SuitableLevel" Relationship="WebDbModel.FK_dbo_SuitableLevel_Project_SuitableLevelId" FromRole="SuitableLevel_Project" ToRole="SuitableLevel" />
+        </EntityType>
+        <EntityType Name="SuitableSubjects_Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SuitableSubjectId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="WebDbModel.FK_dbo_SuitableSubjects_Project_ProjectId" FromRole="SuitableSubjects_Project" ToRole="Project" />
+          <NavigationProperty Name="SuitableSubject" Relationship="WebDbModel.FK_dbo_SuitableSubjects_Project_SuitableSubjectId" FromRole="SuitableSubjects_Project" ToRole="SuitableSubject" />
         </EntityType>
         <Association Name="FK_dbo_Project_AspNetUsers_UserId">
           <End Type="WebDbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -428,43 +544,79 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Project_Cause_CauseId">
+        <Association Name="FK_dbo_Cause_Project_CauseId">
           <End Type="WebDbModel.Cause" Role="Cause" Multiplicity="1" />
-          <End Type="WebDbModel.Project" Role="Project" Multiplicity="*" />
+          <End Type="WebDbModel.Cause_Project" Role="Cause_Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cause">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Project">
+            <Dependent Role="Cause_Project">
               <PropertyRef Name="CauseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Project_SuitableSubject_SuitablelevelId">
+        <Association Name="FK_dbo_Cause_Project_ProjectId">
+          <End Type="WebDbModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="WebDbModel.Cause_Project" Role="Cause_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cause_Project">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_SuitableLevel_Project_ProjectId">
+          <End Type="WebDbModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="WebDbModel.SuitableLevel_Project" Role="SuitableLevel_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuitableLevel_Project">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_SuitableSubjects_Project_ProjectId">
+          <End Type="WebDbModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="WebDbModel.SuitableSubjects_Project" Role="SuitableSubjects_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SuitableSubjects_Project">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_SuitableLevel_Project_SuitableLevelId">
           <End Type="WebDbModel.SuitableLevel" Role="SuitableLevel" Multiplicity="1" />
-          <End Type="WebDbModel.Project" Role="Project" Multiplicity="*" />
+          <End Type="WebDbModel.SuitableLevel_Project" Role="SuitableLevel_Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SuitableLevel">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Project">
+            <Dependent Role="SuitableLevel_Project">
               <PropertyRef Name="SuitableLevelId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_Project_SuitableSubject_SuitableSubjectId">
+        <Association Name="FK_dbo_SuitableSubjects_Project_SuitableSubjectId">
           <End Type="WebDbModel.SuitableSubject" Role="SuitableSubject" Multiplicity="1" />
-          <End Type="WebDbModel.Project" Role="Project" Multiplicity="*" />
+          <End Type="WebDbModel.SuitableSubjects_Project" Role="SuitableSubjects_Project" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SuitableSubject">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Project">
+            <Dependent Role="SuitableSubjects_Project">
               <PropertyRef Name="SuitableSubjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -547,9 +699,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Cause_Project">
+            <EntityTypeMapping TypeName="WebDbModel.Cause_Project">
+              <MappingFragment StoreEntitySet="Cause_Project">
+                <ScalarProperty Name="CauseId" ColumnName="CauseId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Project">
             <EntityTypeMapping TypeName="WebDbModel.Project">
               <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -557,13 +719,28 @@
                 <ScalarProperty Name="SuggestedReading" ColumnName="SuggestedReading" />
                 <ScalarProperty Name="SourceLink" ColumnName="SourceLink" />
                 <ScalarProperty Name="Skills" ColumnName="Skills" />
-                <ScalarProperty Name="SuitableLevelId" ColumnName="SuitableLevelId" />
-                <ScalarProperty Name="CauseId" ColumnName="CauseId" />
-                <ScalarProperty Name="SuitableSubjectId" ColumnName="SuitableSubjectId" />
                 <ScalarProperty Name="Impact" ColumnName="Impact" />
                 <ScalarProperty Name="SpecificProjects" ColumnName="SpecificProjects" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuitableLevel_Project">
+            <EntityTypeMapping TypeName="WebDbModel.SuitableLevel_Project">
+              <MappingFragment StoreEntitySet="SuitableLevel_Project">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="SuitableLevelId" ColumnName="SuitableLevelId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuitableSubjects_Project">
+            <EntityTypeMapping TypeName="WebDbModel.SuitableSubjects_Project">
+              <MappingFragment StoreEntitySet="SuitableSubjects_Project">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="SuitableSubjectId" ColumnName="SuitableSubjectId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

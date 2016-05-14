@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,44 +8,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Web.DAL;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
+using Web.Models.Helpers;
 using Web.Models.View;
 
 namespace Web.Controllers
 {
-    [Authorize]
     public class ProjectsController : BaseController
     {
         private WebDbEntities1 db = new WebDbEntities1();
 
-        public ActionResult Index(List<Project> projects = null)
+        // GET: Projects
+        public ActionResult Index()
         {
-            if (projects == null)
-            {
-                projects = db.Project.Include(p => p.AspNetUsers).Include(p => p.Cause).Include(p => p.SuitableSubject).Include(p=>p.SuitableLevel).Where(p => !p.IsApproved).ToList();
-               
-            }
-            else
-            {
-                if (projects.Count() == 0)
-                    RedirectToAction("Search");
-            }
-            return View(projects);
-        }
-
-        public ActionResult Search()
-        {
-            ProjectSearch search = new ProjectSearch();
-            return View("",search);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(ProjectSearch project)
-        {
-            List<Project> projects = db.Project.Include(c => c.Cause).Where(p => p.Cause.Description.ToLower().Contains(project.Cause.ToLower()) && p.SuitableSubject.Description.ToLower().Contains(project.Subject.ToLower())).Select(p => p).ToList();
-            return PartialView("~/Views/Shared/_ProjectList",projects);
+            List<ProjectView> project = db.Project.Include(p => p.AspNetUsers).Include(p => p.Cause_Project).Include(p => p.SuitableLevel_Project).Include(p => p.SuitableSubjects_Project).Where(p=> !p.IsApproved).ToList().Select(p=> p.ProjectToProjectView()).ToList();
+            return View(project);
         }
 
         // GET: Projects/Details/5
@@ -59,44 +36,65 @@ namespace Web.Controllers
             {
                 return HttpNotFound();
             }
-            return View(project);
+            ProjectView projectView = project.ProjectToProjectView();
+            return View(projectView);
+        }
+
+        public ActionResult Search()
+        {
+            ViewBag.Cause = new SelectList(db.Cause, "Id", "Description");
+            ViewBag.SuitableSubject = new SelectList(db.SuitableSubject, "Id", "Description");
+
+            SearchModel model = new SearchModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Search(SearchModel model)
+        {
+            var projectList = db.Project.Where(p => p.Cause_Project.Any(cp => cp.CauseId == model.CauseId) && p.SuitableSubjects_Project.Any(cp=> cp.SuitableSubjectId == model.SubjectId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title });
+
+            if (projectList.Count() > 0)
+                return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml", projectList);
+            else {
+
+                return new JsonResult() { Data = new { info = "Search returned no results" } };
+            }
         }
 
         // GET: Projects/Create
         public ActionResult Create()
         {
-            ViewBag.IsUserAdmin = UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName);
+
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description");
-            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description");
-            ViewBag.SuitableLevelId = new SelectList(db.SuitableLevel, "Id", "Description");
+            ViewBag.Cause = new SelectList(db.Cause, "Id", "Description");
+            ViewBag.SuitableLevel = new SelectList(db.SuitableLevel, "Id", "Description");
+            ViewBag.SuitableSubject = new SelectList(db.SuitableSubject, "Id", "Description"); 
             return View();
         }
 
-        // POST: Projects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,Impact,SuitableSubjectId,CauseId,SuitableLevelId,Skills,SourceLink,SuggestedReading,SuggestedMethods,UserId,Date,IsApproved")] Project project)
+        public ActionResult Create(ProjectView project)
         {
-            string userId= User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                project.UserId = userId;
+                project.UserId = User.Identity.GetUserId();
                 project.Date = DateTime.UtcNow;
-                db.Project.Add(project);
+                var projectDb = project.ViewToProject();
+
+                db.Project.Add(projectDb);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", project.UserId);
-            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description", project.CauseId);
-            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description", project.SuitableSubjectId);
+           
             return View(project);
         }
-        
-        [Authorize(Roles ="Admin")]
+
         // GET: Projects/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -104,38 +102,35 @@ namespace Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Project project = db.Project.Include(p => p.SuitableLevel_Project).Include(p=>p.SuitableSubjects_Project).Include(p=>p.Cause_Project).Find(id);
+
             Project project = db.Project.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", project.UserId);
-            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description", project.CauseId);
-            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description", project.SuitableSubjectId);
-            return View(project);
+
+            ProjectView viewModel= project.ProjectToProjectView();
+            return View(viewModel);
         }
 
-        // POST: Projects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ProjectArea,Description,SpecificProjects,Impact,SuitableSubjectId,CauseId,SuitableLevel,Skills,SourceLink,SuggestedReading,SuggestedMethods,UserId,Date,IsApproved")] Project project)
+        public ActionResult Edit(ProjectView project)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
+                var projectModel = project.ViewToProject();
+                db.Entry(projectModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", project.UserId);
-            ViewBag.CauseId = new SelectList(db.Cause, "Id", "Description", project.CauseId);
-            ViewBag.SuitableSubjectId = new SelectList(db.SuitableSubject, "Id", "Description", project.SuitableSubjectId);
+           
             return View(project);
         }
 
         // GET: Projects/Delete/5
-        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

@@ -5,6 +5,3 @@ CREATE TABLE [dbo].[SuitableSubject] (
 );
 
 GO
-
-INSERT INTO [dbo].[SuitableSubject] VALUES('Psychology');
-INSERT INTO [dbo].[SuitableSubject] VALUES('Economics');

@@ -1,13 +1,22 @@
-﻿@model IEnumerable<Web.DAL.Project>
+﻿@model IEnumerable<Web.Models.View.ProjectView>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
+@{
+    ViewBag.Title = "Index";
+}
 
-@{ Layout = "~/Views/Shared/_Layout.cshtml";}
+<h2>Index</h2>
 
-@Html.Partial("~/Views/Shared/_ProjectList.cshtml", Model)
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@if (Model.Count() == 0)
+{
+<p>
+    No projects to approve
+</p>
+}
+else
+{
+@Html.Partial("~/Views/Projects/Partials/_ProjectList.cshtml", Model)
+}

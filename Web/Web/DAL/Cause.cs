@@ -17,13 +17,13 @@ namespace Web.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cause()
         {
-            this.Project = new HashSet<Project>();
+            this.Cause_Project = new HashSet<Cause_Project>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Project> Project { get; set; }
+        public virtual ICollection<Cause_Project> Cause_Project { get; set; }
     }
 }

@@ -78,9 +78,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Cause_Project">
+      <EntityTypeMapping TypeName="WebDbModel.Cause_Project">
+        <MappingFragment StoreEntitySet="Cause_Project">
+          <ScalarProperty Name="CauseId" ColumnName="CauseId" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Project">
       <EntityTypeMapping TypeName="WebDbModel.Project">
         <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -88,13 +98,28 @@
           <ScalarProperty Name="SuggestedReading" ColumnName="SuggestedReading" />
           <ScalarProperty Name="SourceLink" ColumnName="SourceLink" />
           <ScalarProperty Name="Skills" ColumnName="Skills" />
-          <ScalarProperty Name="SuitableLevelId" ColumnName="SuitableLevelId" />
-          <ScalarProperty Name="CauseId" ColumnName="CauseId" />
-          <ScalarProperty Name="SuitableSubjectId" ColumnName="SuitableSubjectId" />
           <ScalarProperty Name="Impact" ColumnName="Impact" />
           <ScalarProperty Name="SpecificProjects" ColumnName="SpecificProjects" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SuitableLevel_Project">
+      <EntityTypeMapping TypeName="WebDbModel.SuitableLevel_Project">
+        <MappingFragment StoreEntitySet="SuitableLevel_Project">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="SuitableLevelId" ColumnName="SuitableLevelId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SuitableSubjects_Project">
+      <EntityTypeMapping TypeName="WebDbModel.SuitableSubjects_Project">
+        <MappingFragment StoreEntitySet="SuitableSubjects_Project">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="SuitableSubjectId" ColumnName="SuitableSubjectId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

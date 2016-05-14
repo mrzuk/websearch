@@ -17,13 +17,13 @@ namespace Web.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SuitableLevel()
         {
-            this.Project = new HashSet<Project>();
+            this.SuitableLevel_Project = new HashSet<SuitableLevel_Project>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Project> Project { get; set; }
+        public virtual ICollection<SuitableLevel_Project> SuitableLevel_Project { get; set; }
     }
 }

@@ -11,31 +11,22 @@ namespace Web.DAL
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Project
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Project()
+        {
+            this.Cause_Project = new HashSet<Cause_Project>();
+            this.SuitableLevel_Project = new HashSet<SuitableLevel_Project>();
+            this.SuitableSubjects_Project = new HashSet<SuitableSubjects_Project>();
+        }
+    
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Field is required")]
         public string ProjectArea { get; set; }
-
-        [Required(ErrorMessage = "Field is required")]
         public string Description { get; set; }
         public string SpecificProjects { get; set; }
-
-
-        [Required(ErrorMessage = "Field is required")]
         public string Impact { get; set; }
-
-        [Required(ErrorMessage = "Field is required")]
-        public int SuitableSubjectId { get; set; }
-
-        [Required(ErrorMessage = "Field is required")]
-        public int CauseId { get; set; }
-
-        [Required(ErrorMessage ="Field is required")]
-        public int SuitableLevelId { get; set; }
-
         public string Skills { get; set; }
         public string SourceLink { get; set; }
         public string SuggestedReading { get; set; }
@@ -43,10 +34,14 @@ namespace Web.DAL
         public string UserId { get; set; }
         public System.DateTime Date { get; set; }
         public bool IsApproved { get; set; }
+        public string Title { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual Cause Cause { get; set; }
-        public virtual SuitableLevel SuitableLevel { get; set; }
-        public virtual SuitableSubject SuitableSubject { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cause_Project> Cause_Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SuitableLevel_Project> SuitableLevel_Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SuitableSubjects_Project> SuitableSubjects_Project { get; set; }
     }
 }

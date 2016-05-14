@@ -32,6 +32,9 @@ namespace Web.DAL
         public virtual DbSet<Cause> Cause { get; set; }
         public virtual DbSet<SuitableSubject> SuitableSubject { get; set; }
         public virtual DbSet<SuitableLevel> SuitableLevel { get; set; }
+        public virtual DbSet<Cause_Project> Cause_Project { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<SuitableLevel_Project> SuitableLevel_Project { get; set; }
+        public virtual DbSet<SuitableSubjects_Project> SuitableSubjects_Project { get; set; }
     }
 }

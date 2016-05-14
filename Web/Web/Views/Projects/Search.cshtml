@@ -1,49 +1,56 @@
-﻿@model Web.Models.View.ProjectSearch
+﻿@model Web.Models.View.SearchModel
+
+@using Web.Helpers;
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<script type="text/javascript">
+    function onSearchComplete(result) {
+        if (result.info) {
+            $('#messageModalInfo').html(result.info);
+            $('#SuccessTitle').html("Search");
+            $('#infoModal').modal("show")
+        }
+        else {
+            $('#searchResults').html(result);
+        }
+    }
+
+</script>
 
 
-@{ Layout = "~/Views/Shared/_Layout.cshtml";}
-
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/jqueryval")
-
-
-@using (Html.BeginForm())
+@using (Ajax.BeginForm(new AjaxOptions() { OnSuccess = "onSearchComplete"}))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Search</h4>
-        <hr />
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cause, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Cause)
-                    @Html.ValidationMessageFor(model => model.Cause, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Subject)
-                    @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Search" class="btn btn-default" />
-            </div>
-        </div>
+    <div class="form-group">
+         Subject: @Html.DropDownListFor(model=> model.SubjectId, (SelectList)ViewBag.SuitableSubject)
     </div>
+
+    <div class="form-group">
+         Cause: @Html.DropDownListFor(model => model.CauseId, (SelectList)ViewBag.Cause)
+   </div>
+
+        <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-default" />           
+        </div>
+
 }
+
+<div id="searchResults">
+
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquerajax")
+}

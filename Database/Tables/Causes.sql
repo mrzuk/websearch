@@ -5,7 +5,3 @@ CREATE TABLE [dbo].[Cause] (
    
 );
 
-GO
-
-INSERT INTO [dbo].[Cause] VALUES('Animal welfare');
-INSERT INTO [dbo].[Cause] VALUES('Global poverty');
