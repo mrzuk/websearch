@@ -90,6 +90,8 @@
     <EntitySetMapping Name="Project">
       <EntityTypeMapping TypeName="WebDbModel.Project">
         <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="WasRevised" ColumnName="WasRevised" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
           <ScalarProperty Name="Date" ColumnName="Date" />
@@ -120,6 +122,24 @@
         <MappingFragment StoreEntitySet="SuitableSubjects_Project">
           <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
           <ScalarProperty Name="SuitableSubjectId" ColumnName="SuitableSubjectId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InterestedUsers_Projects">
+      <EntityTypeMapping TypeName="WebDbModel.InterestedUsers_Projects">
+        <MappingFragment StoreEntitySet="InterestedUsers_Projects">
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Configurations">
+      <EntityTypeMapping TypeName="WebDbModel.Configurations">
+        <MappingFragment StoreEntitySet="Configurations">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

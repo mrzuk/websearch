@@ -16,3 +16,37 @@
         </div>
     </div>
 </div>
+
+@{ 
+    var temp = TempData["success"];
+    if (temp !=null)
+    {
+    <script>
+       var tempD = "@temp.ToString()"
+        $(document).ready(function () {
+            //var tempData = $("#tempData").text();
+            $("#messageModalInfo").html(tempD);
+
+            $("#infoModal").modal("show");
+        });
+    </script>
+
+        }
+}
+
+@{
+    var tempError = TempData["error"];
+    if (tempError != null)
+    {
+        <script>
+       var tempD = "@tempError.ToString()"
+        $(document).ready(function () {
+            //var tempData = $("#tempData").text();
+            $("#messageModalInfo").html(tempD);
+            $("#SuccessTitle").html("Error");
+            $("#infoModal").modal("show");
+        });
+        </script>
+
+    }
+}

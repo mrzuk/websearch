@@ -4,11 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Projects to approve</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
 @if (Model.Count() == 0)
 {
@@ -19,4 +16,13 @@
 else
 {
 @Html.Partial("~/Views/Projects/Partials/_ProjectList.cshtml", Model)
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/create")
+@Scripts.Render("~/bundles/jquerajax")
+
 }

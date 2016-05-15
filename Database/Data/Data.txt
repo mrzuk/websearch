@@ -25,3 +25,12 @@ INSERT INTO [dbo].[SuitableSubject] VALUES('Economics');
 --SuitableLevel
 INSERT INTO [dbo].[SuitableLevel] VALUES('Masters');
 INSERT INTO [dbo].[SuitableLevel] VALUES('Ph.D.');
+
+
+--configs 
+
+INSERT INTO [dbo].[Configurations] VALUES('contactUsEmail','john.kennedy@onet.com.pl')
+INSERT INTO [dbo].[Configurations] VALUES('emailServer','smtp.poczta.onet.pl')
+INSERT INTO [dbo].[Configurations] VALUES('emailLogin','john.kennedy@onet.com.pl')
+INSERT INTO [dbo].[Configurations] VALUES('emailPassword','Nirvana@27')
+INSERT INTO [dbo].[Configurations] VALUES('smttpPort','465')

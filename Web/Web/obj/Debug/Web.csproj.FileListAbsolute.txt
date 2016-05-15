@@ -135,4 +135,6 @@ C:\VSProjects\websearch\Web\Web\bin\Microsoft.Owin.Security.Twitter.xml
 C:\VSProjects\websearch\Web\Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\VSProjects\websearch\Web\Web\obj\Debug\Web.dll
 C:\VSProjects\websearch\Web\Web\obj\Debug\Web.pdb
+C:\VSProjects\websearch\Web\Web\bin\RazorEngine.dll
+C:\VSProjects\websearch\Web\Web\bin\RazorEngine.xml
 C:\VSProjects\websearch\Web\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache

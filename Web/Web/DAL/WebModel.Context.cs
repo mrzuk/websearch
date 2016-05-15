@@ -13,10 +13,10 @@ namespace Web.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WebDbEntities1 : DbContext
+    public partial class WebDbEntities : DbContext
     {
-        public WebDbEntities1()
-            : base("name=WebDbEntities1")
+        public WebDbEntities()
+            : base("name=WebDbEntities")
         {
         }
     
@@ -36,5 +36,7 @@ namespace Web.DAL
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<SuitableLevel_Project> SuitableLevel_Project { get; set; }
         public virtual DbSet<SuitableSubjects_Project> SuitableSubjects_Project { get; set; }
+        public virtual DbSet<InterestedUsers_Projects> InterestedUsers_Projects { get; set; }
+        public virtual DbSet<Configurations> Configurations { get; set; }
     }
 }

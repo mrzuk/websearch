@@ -13,15 +13,17 @@ CREATE TABLE [dbo].[Project] (
     [Date]             DATETIME       NOT NULL,
 	[IsApproved]		BIT NOT NULL DEFAULT 0,
 	[WasRevised]	BIT NOT NULL DEFAULT 0,
+	[SubmitedBy]		NVARCHAR (256) NOT NULL,
+	[SubmitedByEmail]   NVARCHAR (256) NOT NULL,
 	[Comment]		NVARCHAR (MAX) NULL,
     CONSTRAINT [PK_dbo.Project] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_dbo.Project.AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id])
+    CONSTRAINT [FK_dbo.Project.AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
 );
 
 
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Project_IsApproved]
+CREATE NONCLUSTERED INDEX [IX_Project_IsApproved]
     ON [dbo].[Project]([IsApproved] ASC);
 

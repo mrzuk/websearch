@@ -40,11 +40,21 @@ namespace Web.Models.View
         [DisplayName("Suggested methods")]
         public string SuggestedMethods { get; set; }
         public string UserId { get; set; }
-        public System.DateTime Date { get; set; }
+
+        public System.DateTime? Date { get; set; }
 
         [DisplayName("Approved")]
         public bool IsApproved { get; set; }
+
+        [DisplayName("Added by")]
         public string UserName { get; set; }
+
+        public List<Cause> CauseCollection { get; set; }
+
+        public List<SuitableLevel> LevelCollection { get; set; }
+
+        public List<SuitableSubject> SubjectCollection { get; set; }
+
 
         [Required(ErrorMessage = RequiredErrorMessage)]
 
@@ -57,7 +67,9 @@ namespace Web.Models.View
         [Required(ErrorMessage = RequiredErrorMessage)]
         [DisplayName("Subjects")]
         public List<int> SuitableSubjects { get; set; }
-    }
+
+
+     }
 
     public class Cause
     {

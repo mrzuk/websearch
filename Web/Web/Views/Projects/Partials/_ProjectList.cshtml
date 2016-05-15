@@ -1,103 +1,201 @@
 ﻿@model IEnumerable<Web.Models.View.ProjectView>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectArea)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SpecificProjects)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Impact)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Skills)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SourceLink)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SuggestedReading)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SuggestedMethods)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsApproved)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Causes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SuitableLevels)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SuitableSubjects)
-        </th>
-        <th></th>
-    </tr>
+@Scripts.Render("~/bundles/Approve")
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
+@foreach (var item in Model)
+{
+    <div class="project-list-horizontal">
+        <hr />
+
+        <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
+
+        @Html.HiddenFor(modelItem => item.UserId)
+
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.ProjectArea)
+            </div>
+            <div class="col-md-9">
                 @Html.DisplayFor(modelItem => item.ProjectArea)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SpecificProjects)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Impact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Skills)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SourceLink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SuggestedReading)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SuggestedMethods)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                string.Join(", ",item.Causes.Description)
-            </td>
-            <td>
-                string.Join(", ",item.SuitableLevels.Description)
-            </td>
-            <td>
-                string.Join(", ",item.SuitableSubjects.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
+            </div>
+        </div>
 
-</table>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Description)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.Description)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">@Html.DisplayNameFor(model => model.SpecificProjects)</div>
+
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.SpecificProjects)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Impact)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.Impact)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Skills)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.Skills)
+            </div>
+        </div>
+
+        @if (item.SourceLink != null)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.SourceLink)
+                </div>
+                <div class="col-md-9">
+                    @Html.DisplayFor(modelItem => item.SourceLink)
+                </div>
+            </div>
+        }
+
+        @if (item.SuggestedReading != null)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.SuggestedReading)
+                </div>
+                <div class="col-md-9">
+                    @Html.DisplayFor(modelItem => item.SuggestedReading)
+                </div>
+            </div>
+        }
+        @if (item.SuggestedMethods != null)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.SuggestedMethods)
+                </div>
+                <div class="col-md-9">
+                    @Html.DisplayFor(modelItem => item.SuggestedMethods)
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Date)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.Date)
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.UserName)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.UserName)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                Causes
+            </div>
+            <div class="col-md-9">
+                @string.Join(", ", item.CauseCollection.Select(t => t.Description).ToArray())
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                Level
+            </div>
+            <div class="col-md-9">
+                @string.Join(", ", item.LevelCollection.Select(t => t.Description).ToArray())
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.SuitableSubjects)
+            </div>
+            <div class="col-md-9">
+                @string.Join(", ", item.SubjectCollection.Select(t => t.Description).ToArray())
+            </div>
+        </div>
+
+
+        <div class="editHidden" id="@item.Id">
+            <div class="project-list-horizontal">
+                <hr />
+                @using (Ajax.BeginForm("Edit", "Projects", new { id = item.Id }, new AjaxOptions() { OnSuccess= "return OnSumbitInterest()" }, new { onsubmit = "return onBeforeSubmit(this);", }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("~/Views/Projects/Partials/_EditCreate.cshtml", item)
+
+                }
+            </div>
+        </div>
+
+        @if (ViewBag.CanApprove != null && ViewBag.CanApprove)
+        {
+
+            using (Html.BeginForm("ApproveProject", "Projects", new { id = item.Id }))
+            {
+
+                <div class="form-group">
+                    <input type="submit" value="Approve" class="btn btn-default" />
+                </div>
+
+            }
+        }
+
+        @if(ViewBag.CanEdit !=null && ViewBag.CanEdit == true) { 
+
+            <div class="form-group">
+                <input type="button" value="Edit" modal-id="@item.Id" class="btn btn-default editButton" />
+            </div>
+            <div class="form-group">
+                @using (Html.BeginForm("Delete", "Projects", new { id = item.Id }))
+                {
+                    @Html.AntiForgeryToken();
+
+                    <div class="form-group">
+                        <input type="submit" value="Delete" class="btn btn-default" />
+                    </div>
+
+                }
+            </div>
+        }
+
+    </div>
+}
+
+
+<div class="modal fade" id="infoProjectListModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <<div class="modal-dialog">
+    <div class="modal-content">
+        <div id="modal-projectlist-content">
+
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    ShowEditModal();
+</script>

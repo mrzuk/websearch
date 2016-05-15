@@ -20,6 +20,7 @@ namespace Web.DAL
             this.Cause_Project = new HashSet<Cause_Project>();
             this.SuitableLevel_Project = new HashSet<SuitableLevel_Project>();
             this.SuitableSubjects_Project = new HashSet<SuitableSubjects_Project>();
+            this.InterestedUsers_Projects = new HashSet<InterestedUsers_Projects>();
         }
     
         public int Id { get; set; }
@@ -35,6 +36,8 @@ namespace Web.DAL
         public System.DateTime Date { get; set; }
         public bool IsApproved { get; set; }
         public string Title { get; set; }
+        public bool WasRevised { get; set; }
+        public string Comment { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -43,5 +46,7 @@ namespace Web.DAL
         public virtual ICollection<SuitableLevel_Project> SuitableLevel_Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SuitableSubjects_Project> SuitableSubjects_Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InterestedUsers_Projects> InterestedUsers_Projects { get; set; }
     }
 }

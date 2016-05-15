@@ -14,7 +14,7 @@ namespace Web.Models.Helpers
             Project project = new Project();
 
             project.Title = data.Title;
-            project.Date = data.Date;
+            project.Date = (data.Date!=null)? (DateTime)data.Date : DateTime.UtcNow;
             project.Description = data.Description;
             project.Impact = data.Impact;
             project.IsApproved = data.IsApproved;
@@ -28,7 +28,7 @@ namespace Web.Models.Helpers
             project.Id = data.Id;
 
             List<Cause_Project> cause_projects = new List<Cause_Project>();
-            foreach(int causeid in data.Causes)
+            foreach (int causeid in data.Causes)
             {
                 cause_projects.Add(new Cause_Project() { CauseId = causeid, ProjectId = data.Id });
             }
@@ -44,6 +44,23 @@ namespace Web.Models.Helpers
             {
                 suitableSubject_projects.Add(new SuitableSubjects_Project() { SuitableSubjectId = suId, ProjectId = data.Id });
             }
+
+            //foreach (View.Cause c in data.Causes)
+            //{
+            //    cause_projects.Add(new Cause_Project() { CauseId = c.Id, ProjectId = data.Id });
+            //}
+
+            //List<SuitableLevel_Project> suitableLevel_projects = new List<SuitableLevel_Project>();
+            //foreach (View.SuitableLevel suId in data.SuitableLevels)
+            //{
+            //    suitableLevel_projects.Add(new SuitableLevel_Project() { SuitableLevelId = suId.Id, ProjectId = data.Id });
+            //}
+
+            //List<SuitableSubjects_Project> suitableSubject_projects = new List<SuitableSubjects_Project>();
+            //foreach (View.SuitableSubject suId in data.SuitableSubjects)
+            //{
+            //    suitableSubject_projects.Add(new SuitableSubjects_Project() { SuitableSubjectId = suId.Id, ProjectId = data.Id });
+            //}
 
             project.Cause_Project = cause_projects;
             project.SuitableLevel_Project = suitableLevel_projects;
@@ -69,12 +86,24 @@ namespace Web.Models.Helpers
             view.SuggestedReading = data.SuggestedReading;
             view.UserId = data.UserId;
             view.Id = data.Id;
+            view.UserName = data.AspNetUsers.UserName;
+            view.UserId = data.UserId;
+            view.CauseCollection = data.Cause_Project.ToList().Select(a => new View.Cause() { Id = a.CauseId, Description = a.Cause.Description }).ToList();
+            view.LevelCollection = data.SuitableLevel_Project.ToList().Select(a => new View.SuitableLevel() { Id = a.SuitableLevelId, Description = a.SuitableLevel.Description }).ToList();
+            view.SubjectCollection = data.SuitableSubjects_Project.ToList().Select(a => new View.SuitableSubject() { Id = a.SuitableSubjectId, Description = a.SuitableSubject.Description }).ToList();
 
-            view.SuitableLevels = data.SuitableLevel_Project.ToList().Select(a => a.Id).ToList();
 
-            view.SuitableSubjects = data.SuitableSubjects_Project.ToList().Select(a => a.Id).ToList();
+            view.SuitableSubjects = view.SubjectCollection.Select(a => a.Id).ToList();
+            view.Causes = view.CauseCollection.Select(a => a.Id).ToList();
+            view.SuitableLevels = view.LevelCollection.Select(a => a.Id).ToList();
 
-            view.Causes = data.Cause_Project.ToList().Select(a => a.Id).ToList();
+            //view.SuitableSubjects = data.SuitableSubjects_Project.ToList().Select(a => a.SuitableSubjectId).ToList();
+            //view.Causes = data.Cause_Project.ToList().Select(a => a.CauseId).ToList();
+            //view.SuitableLevels = data.SuitableLevel_Project.ToList().Select(a => a.SuitableLevelId).ToList();
+
+            //view.SuitableSubjects = data.SuitableSubjects_Project.ToList().Select(a => new View.SuitableSubject() { Id = a.SuitableSubjectId, Description = a.SuitableSubject.Description }).ToList();
+            //view.Causes = data.Cause_Project.ToList().Select(a => new View.Cause() { Id = a.CauseId, Description = a.Cause.Description }).ToList();
+            //view.SuitableLevels = data.SuitableLevel_Project.ToList().Select(a => new View.SuitableLevel() { Id = a.Id, Description = a.SuitableLevel.Description }).ToList();
 
             return view;
 

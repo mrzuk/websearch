@@ -26,6 +26,10 @@
         <AssociationConnector Association="WebDbModel.FK_dbo_SuitableSubjects_Project_ProjectId" />
         <AssociationConnector Association="WebDbModel.FK_dbo_SuitableLevel_Project_SuitableLevelId" />
         <AssociationConnector Association="WebDbModel.FK_dbo_SuitableSubjects_Project_SuitableSubjectId" />
+        <EntityTypeShape EntityType="WebDbModel.InterestedUsers_Projects" Width="1.5" PointX="11.5" PointY="5.625" />
+        <AssociationConnector Association="WebDbModel.FK_dbo_InterestedUsers_Projects_UserId" />
+        <AssociationConnector Association="WebDbModel.FK_dbo_InterestedUsers_Projects_ProjectId" />
+        <EntityTypeShape EntityType="WebDbModel.Configurations" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

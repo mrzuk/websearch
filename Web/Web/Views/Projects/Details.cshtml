@@ -1,11 +1,36 @@
 ﻿
-@model Web.Models.View.ProjectView
+@model Web.Models.View.DetailsView
 
 @{
-    ViewBag.Title = "Details for "+ Model.Title;
+    ViewBag.Title = "Details for "+ Model.ProjectModel.Title;
 }
 
-<h2>@Model.Title</h2>
+<h2>@Model.ProjectModel.Title</h2>
 
-    @Html.Partial("~/Views/Projects/Partials/_ProjectList.cshtml", new List<Web.Models.View.ProjectView>() { Model })
+<div>
+    @Html.Partial("~/Views/Projects/Partials/_ProjectList.cshtml", new List<Web.Models.View.ProjectView>() { Model.ProjectModel })
+</div>
 
+<div class="form-group" id="express-interes-form">
+
+    @if (!Model.IsUserInterested) { 
+    using (Ajax.BeginForm("ExpressInterest", "Projects", new { projectId = Model.ProjectModel.Id }, new AjaxOptions() { OnSuccess = "OnSumbitInterest" }))
+    {
+        @Html.AntiForgeryToken();
+
+        <div class="form-group">
+            <input type="submit" value="Express interest" class="btn btn-default" />
+        </div>
+
+    }
+    }
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/create")
+    @Scripts.Render("~/bundles/jquerajax")
+    @Scripts.Render("~/bundles/Details")
+}

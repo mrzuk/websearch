@@ -20,6 +20,14 @@ namespace Web
             bundles.Add(new ScriptBundle("~/bundles/create").Include(
                        "~/Scripts/app/Create.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/Approve").Include(
+                       "~/Scripts/app/Approve.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/Shared").Include(
+                       "~/Scripts/app/Shared.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/Details").Include(
+                       "~/Scripts/app/Details.js"));
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

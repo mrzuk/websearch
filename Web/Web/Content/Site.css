@@ -27,3 +27,22 @@ textarea {
 #projectLink:hover{
     cursor:pointer;
 }
+
+.project-list-horizontal .col-md-3{
+    font-weight:bold;
+}
+
+.back-link{
+    margin-top:10px;
+
+}
+
+.editHidden
+{display:none;
+
+}
+
+#modal-projectlist-content{
+    margin:10px;
+
+}
