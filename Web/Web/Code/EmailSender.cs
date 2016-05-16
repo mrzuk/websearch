@@ -21,7 +21,7 @@ namespace Web.Code
                 message.To.Add(receiver);
 
             message.From = new MailAddress(msg.SenderAddress);
-
+            message.Sender = new MailAddress(msg.SenderAddress);
 
             Client.Port = configuration.ftpConfig.Port;
             Client.Host = configuration.ftpConfig.Server;

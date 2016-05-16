@@ -49,17 +49,6 @@ namespace Web.Controllers
 
             db.SaveChanges();
 
-            Configuration configurations = Configuration.Create(db);
-            EmailMssg mssg = new EmailMssg();
-            mssg.IsHtml = true;
-            mssg.Receivers = new List<string>() { "mrzuk@op.pl" };
-            mssg.SenderAddress = "no-reply@costam.pl";
-            mssg.Subject = "test";
-            mssg.TemplateModel = new ContactUs() { From = "Ktos tam", MessageContent = "hahaha" };
-            mssg.TemplateString = System.IO.File.ReadAllText(Server.MapPath("~/Templates/ContactUsTemplate.html"));
-
-            EmailSender.Send(configurations, mssg);
-
             return View();
         }
     }

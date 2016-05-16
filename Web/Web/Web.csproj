@@ -247,12 +247,15 @@
     <Compile Include="Helpers\ConfigurationHelpers.cs" />
     <Compile Include="Helpers\HtmlHelperExtension.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Email\ApproveRejectModel.cs" />
     <Compile Include="Models\Email\ContactUs.cs" />
     <Compile Include="Models\Helpers\ProjectViewHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\View\ApproveViewModel.cs" />
     <Compile Include="Models\View\ConfigurationView.cs" />
     <Compile Include="Models\View\DetailsView.cs" />
+    <Compile Include="Models\View\ExpressInterestViewModel.cs" />
     <Compile Include="Models\View\IsAdmin.cs" />
     <Compile Include="Models\View\ProjectSearch.cs" />
     <Compile Include="Models\View\ProjectView.cs" />
@@ -292,6 +295,7 @@
     <Content Include="DAL\WebModel.edmx.diagram">
       <DependentUpon>WebModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\research4good.hostingasp.pl - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -306,6 +310,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Templates\ProjectApproved.html" />
+    <Content Include="Templates\ProjectRejeceted.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -353,6 +359,7 @@
     <Content Include="Views\Shared\_InfoModals.cshtml" />
     <Content Include="Views\Projects\Partials\_EditCreate.cshtml" />
     <Content Include="Views\Configurations\Index.cshtml" />
+    <Content Include="Views\Projects\Partials\_ApproveView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

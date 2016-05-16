@@ -4,13 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web.DAL;
 
 namespace Web.Controllers
 {
-    public class BaseController : Controller
+    public abstract class BaseController : Controller
     {
+        private WebDbEntities db { get; set; }
+        public virtual WebDbEntities Db
+        {
+            get
+            {
+                return db ?? new WebDbEntities();
+            }
+            protected set
+            {
+                db = value;
+            }
+        }
+
         protected ApplicationUserManager _userManager;
-        public ApplicationUserManager UserManager
+        public virtual ApplicationUserManager UserManager
         {
             get
             {
