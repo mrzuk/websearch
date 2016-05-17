@@ -139,15 +139,25 @@
             </div>
         </div>
 
+        @if (item.InterestedUsers.Count() > 0)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayNameFor(model => model.InterestedUsers)
+                </div>
+                <div class="col-md-9">
+                    @string.Join(", ", item.InterestedUsers.ToArray())
+                </div>
+            </div>
+        }
 
         <div class="editHidden" id="@item.Id">
             <div class="project-list-horizontal">
                 <hr />
-                @using (Ajax.BeginForm("Edit", "Projects", new { id = item.Id }, new AjaxOptions() { OnSuccess= "return OnSumbitInterest()" }, new { onsubmit = "return onBeforeSubmit(this);", }))
+                @using (Ajax.BeginForm("Edit", "Projects", new { id = item.Id }, new AjaxOptions() { OnSuccess = "return reloadPage()" }, new { onsubmit = "return onBeforeSubmit(this);", }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.Partial("~/Views/Projects/Partials/_EditCreate.cshtml", item)
-
                 }
             </div>
         </div>
@@ -155,60 +165,46 @@
         @if (ViewBag.CanApprove != null && ViewBag.CanApprove)
         {
             var approveId = (item.Id + "_approveForm");
-                        <div class="form-group">
-                
-                <input type="button"  value="Approve" approve-form-id=@approveId class="btn btn-default approve-button" />
-            </div>
+            <input type="button" value="Approve" approve-form-id=@approveId class="btn btn-default approve-button" />
             <div class="editHidden">
                 @using (Html.BeginForm("ApproveProject", "Projects", null, FormMethod.Post, new { id = @item.Id + "_approveForm" }))
                 {
-                @Html.Partial("~/Views/Projects/Partials/_ApproveView.cshtml", new Web.Models.View.ApproveViewModel() { ProjectId = item.Id })
-                <div class="form-group">
-                    <input type="submit" value="Approve" class="btn btn-default" />
-                </div>
-
-                }
-            </div>
-
-}
-
-        @if(ViewBag.CanEdit !=null && ViewBag.CanEdit == true) { 
-
-            <div class="form-group">
-                <input type="button" value="Edit" modal-id="@item.Id" class="btn btn-default editButton" />
-            </div>
-            <div class="form-group">
-                @using (Html.BeginForm("Delete", "Projects", new { id = item.Id }))
-                {
-                    @Html.AntiForgeryToken();
-
+                    @Html.Partial("~/Views/Projects/Partials/_ApproveView.cshtml", new Web.Models.View.ApproveViewModel() { ProjectId = item.Id })
                     <div class="form-group">
-                        <input type="submit" value="Delete" class="btn btn-default" />
+                        <input type="submit" value="Approve" class="btn btn-default" />
                     </div>
-
                 }
             </div>
-        }
 
+        }
+        @if (ViewBag.CanEdit != null && ViewBag.CanEdit == true)
+        {
+            <input type="button" value="Edit" modal-id="@item.Id" class="btn btn-default editButton" />
+            using (Html.BeginForm("Delete", "Projects", new { id = item.Id },FormMethod.Post,new { id = "delete-button" }))
+            {
+                @Html.AntiForgeryToken();
+                <input type="submit" value="Delete" class="btn btn-default" />
+            }
+        }
     </div>
 }
 
 <div id="approve-modal-content">
-    
+
 
 </div>
 
 <div class="modal fade" id="infoProjectListModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <<div class="modal-dialog">
-    <div class="modal-content">
-        <div id="modal-projectlist-content">
+        <div class="modal-content">
+            <div id="modal-projectlist-content">
 
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <script>

@@ -68,6 +68,9 @@ namespace Web.Models.View
         [DisplayName("Subjects")]
         public List<int> SuitableSubjects { get; set; }
 
+        [DisplayName("Interested users")]
+        public List<string> InterestedUsers { get; set; }
+
 
      }
 

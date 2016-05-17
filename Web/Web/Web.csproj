@@ -360,6 +360,8 @@
     <Content Include="Views\Projects\Partials\_EditCreate.cshtml" />
     <Content Include="Views\Configurations\Index.cshtml" />
     <Content Include="Views\Projects\Partials\_ApproveView.cshtml" />
+    <Content Include="Views\Projects\Partials\_ProjectDetail.cshtml" />
+    <Content Include="Views\Projects\Partials\_ExpressInterest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

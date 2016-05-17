@@ -23,6 +23,11 @@ namespace Web.Controllers
             }
         }
 
+        public BaseController()
+        {
+            Db = new WebDbEntities();
+        }
+
         protected ApplicationUserManager _userManager;
         public virtual ApplicationUserManager UserManager
         {

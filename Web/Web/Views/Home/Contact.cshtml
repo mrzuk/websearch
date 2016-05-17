@@ -1,45 +1,43 @@
 ﻿@model Web.Models.Email.ContactUs
 
 @{
-    ViewBag.Title = "Contact";
+    ViewBag.Title = "Contact us";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
-<div class="form-group contact">
+@using (Html.BeginForm()) { 
+    @Html.AntiForgeryToken()
+<div class="contact">
     @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
+  
         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-    </div>
+   
 </div>
 
-<div class="form-group contact">
+<div class="contact">
     @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
+ 
         @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
-    </div>
+    
 </div>
 
-<div class="form-group contact">
+<div class="contact">
     @Html.LabelFor(model => model.MessageContent, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.TextAreaFor(model => model.MessageContent, new { htmlAttributes = new { @class = "form-control" } })
+  
+        @Html.TextAreaFor(model => model.MessageContent, new { @class = "form-control", rows=5 } )
         @Html.ValidationMessageFor(model => model.MessageContent, "", new { @class = "text-danger" })
+ 
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input id="submitButton" type="submit" value="Submit" class="btn btn-default" />
     </div>
 </div>
 
-<address>
-    Address<br />
-    Gdynia<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:smth@example.com">smths@smth.com</a><br />
-</address>
-
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

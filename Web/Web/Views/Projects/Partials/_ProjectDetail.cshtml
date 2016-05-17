@@ -1,0 +1,149 @@
+﻿@model Web.Models.View.ProjectView
+
+<div class="project-list-horizontal">
+    <hr />
+
+    <h3>@Html.DisplayFor(model => model.Title)</h3>
+
+    @Html.HiddenFor(model => model.UserId)
+
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(model => model.ProjectArea)
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.ProjectArea)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(model => model.Description)
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Description)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">@Html.DisplayNameFor(model => model.SpecificProjects)</div>
+
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.SpecificProjects)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(model => model.Impact)
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Impact)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(model => model.Skills)
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Skills)
+        </div>
+    </div>
+
+    @if (Model.SourceLink != null)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.SourceLink)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.SourceLink)
+            </div>
+        </div>
+    }
+
+    @if (Model.SuggestedReading != null)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.SuggestedReading)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.SuggestedReading)
+            </div>
+        </div>
+    }
+    @if (Model.SuggestedMethods != null)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.SuggestedMethods)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(model => model.SuggestedMethods)
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(model => model.Date)
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.Date)
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(model => model.UserName)
+        </div>
+        <div class="col-md-9">
+            @Html.DisplayFor(model => model.UserName)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Causes
+        </div>
+        <div class="col-md-9">
+            @string.Join(", ", Model.CauseCollection.Select(t => t.Description).ToArray())
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Level
+        </div>
+        <div class="col-md-9">
+            @string.Join(", ", Model.LevelCollection.Select(t => t.Description).ToArray())
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            @Html.DisplayNameFor(model => model.SuitableSubjects)
+        </div>
+        <div class="col-md-9">
+            @string.Join(", ", Model.SubjectCollection.Select(t => t.Description).ToArray())
+        </div>
+    </div>
+
+    @if (Model.InterestedUsers.Count() > 0)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.InterestedUsers)
+            </div>
+            <div class="col-md-9">
+                @string.Join(", ", Model.InterestedUsers.ToArray())
+            </div>
+        </div>
+    }
+
+</div>

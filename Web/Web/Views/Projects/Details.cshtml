@@ -8,24 +8,68 @@
 <h2>@Model.ProjectModel.Title</h2>
 
 <div>
-    @Html.Partial("~/Views/Projects/Partials/_ProjectList.cshtml", new List<Web.Models.View.ProjectView>() { Model.ProjectModel })
+    @Html.Partial("~/Views/Projects/Partials/_ProjectDetail.cshtml", Model.ProjectModel )
 </div>
 
-<div class="form-group" id="express-interes-form">
+<div class="editHidden" id="@Model.ProjectModel.Id">
+    <div class="project-list-horizontal">
+        <hr />
+        @using (Ajax.BeginForm("Edit", "Projects", new { id = Model.ProjectModel.Id }, new AjaxOptions() { OnSuccess = "return reloadPage()" }, new { onsubmit = "return onBeforeSubmit(this);", }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Partial("~/Views/Projects/Partials/_EditCreate.cshtml", Model.ProjectModel)
+        }
+    </div>
+</div>
 
-    @if (!Model.IsUserInterested) { 
-    using (Ajax.BeginForm("ExpressInterest", "Projects", new { projectId = Model.ProjectModel.Id }, new AjaxOptions() { OnSuccess = "OnSumbitInterest" }))
+
+@if (ViewBag.CanEdit != null && ViewBag.CanEdit == true)
+{
+    <input type="button" value="Edit" modal-id="@Model.ProjectModel.Id" class="btn btn-default editButton" />
+    using (Html.BeginForm("Delete", "Projects", new { id = Model.ProjectModel.Id }, FormMethod.Post, new { id = "delete-button" }))
     {
         @Html.AntiForgeryToken();
-
-        <div class="form-group">
-            <input type="submit" value="Express interest" class="btn btn-default" />
-        </div>
-
+        <input type="submit" value="Delete" class="btn btn-default" />
     }
+}
+
+<div class="form-group" id="express-interes-form">
+    <input type="submit" value="Express interest" class="btn btn-default express_interest" />
+
+    @if (!Model.IsUserInterested)
+    {
+        using (Ajax.BeginForm("ExpressInterest", "Projects", new { projectId = Model.ProjectModel.Id }, new AjaxOptions() { OnSuccess = "OnSumbitInterest" }))
+        {
+            @Html.AntiForgeryToken();
+
+            var ProjectViewModel = new Web.Models.View.ExpressInterestViewModel();
+            <div class="form-group">
+                @Html.LabelFor(model => model., htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", rows = 5 })
+                    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        }
     }
 </div>
 
+<div id="approve-modal-content">
+</div>
+
+<div class="modal fade" id="infoProjectListModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <<div class="modal-dialog">
+        <div class="modal-content">
+            <div id="modal-projectlist-content">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {
@@ -33,4 +77,12 @@
     @Scripts.Render("~/bundles/create")
     @Scripts.Render("~/bundles/jquerajax")
     @Scripts.Render("~/bundles/Details")
+@Scripts.Render("~/bundles/Approve")
+<script>
+    ShowEditModal();
+</script>
+<script>
+    ShowExpressInterestModal();
+</script>
 }
+

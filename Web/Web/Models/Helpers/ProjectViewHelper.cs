@@ -97,6 +97,7 @@ namespace Web.Models.Helpers
             view.Causes = view.CauseCollection.Select(a => a.Id).ToList();
             view.SuitableLevels = view.LevelCollection.Select(a => a.Id).ToList();
 
+            view.InterestedUsers = data.InterestedUsers_Projects.Select(iup => iup.AspNetUsers.UserName).ToList();
             //view.SuitableSubjects = data.SuitableSubjects_Project.ToList().Select(a => a.SuitableSubjectId).ToList();
             //view.Causes = data.Cause_Project.ToList().Select(a => a.CauseId).ToList();
             //view.SuitableLevels = data.SuitableLevel_Project.ToList().Select(a => a.SuitableLevelId).ToList();

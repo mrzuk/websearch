@@ -7,5 +7,7 @@ namespace Web.Models.View
 {
     public class ExpressInterestViewModel
     {
+        public string User { get; set; }
+        public string WhyInterested { get; set;}
     }
 }

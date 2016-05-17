@@ -1,6 +1,9 @@
 ﻿@model Web.Models.Email.ContactUs
 
+
 @Model.MessageContent
 
-Regards @Model.FullName (@Model.Email)
+<p>
+    Regards <b>@Model.FullName (@Model.Email)</b>
+</p>
 <p style="font-size:12px;"> Email sent from ResearchForGood website</p>

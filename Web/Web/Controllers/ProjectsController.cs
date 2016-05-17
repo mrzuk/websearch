@@ -220,15 +220,24 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExpressInterest(int projectId)
         {
-            if (User.Identity.IsAuthenticated)
+            try
             {
-                InterestedUsers_Projects user2Project = new InterestedUsers_Projects() { ProjectId = projectId, UserId = User.Identity.GetUserId() };
-                Db.InterestedUsers_Projects.Add(user2Project);
-                Db.SaveChanges();
-                return new JsonResult() { Data = new { success = true } };
+                if (User.Identity.IsAuthenticated)
+                {
+                    InterestedUsers_Projects user2Project = new InterestedUsers_Projects() { ProjectId = projectId, UserId = User.Identity.GetUserId() };
+                    Db.InterestedUsers_Projects.Add(user2Project);
+
+                    int written = Db.SaveChanges();
+                    return new JsonResult() { Data = new { success = true } };
+                }
+                else
+                    return new JsonResult() { Data = new { userNotLogged = true } };
             }
-            else
-                return new JsonResult() { Data = new { userNotLogged = true } };
+            catch (Exception ex)
+            {
+                TempData["error"] = "Error while expressing interest";
+                return RedirectToAction("Details", new { id = projectId });
+            }
         }
 
         [HttpPost]
@@ -306,8 +315,23 @@ namespace Web.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Project project = Db.Project.Find(id);
-            Db.Project.Remove(project);
-            Db.SaveChanges();
+
+            if (project != null)
+            {
+                Db.Project.Remove(project);
+                try
+                {
+                    Db.SaveChanges();
+                    TempData["success"] = "Report " + project.Title + " successfully deleted";
+                }
+                catch (Exception ex)
+                {
+                    TempData["error"] = "Error while deleting report: " + ex.InnerException.ToString();
+                }
+            }
+            else
+                TempData["error"] = "Report was already deleted";
+
             return RedirectToAction("Index");
         }
 
