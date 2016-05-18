@@ -50,3 +50,14 @@ function onBeforeSubmit(parentElement) {
     else
         return true;
 }
+
+
+$('.modal').each(function () {
+    $(this).on('show.bs.modal', function () {
+        $(this).css({
+            width: 'auto', 
+            height: 'auto', 
+            'max-height': '100%'
+        });
+    });
+});

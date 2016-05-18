@@ -26,6 +26,7 @@
                 @Html.DisplayFor(model => model.UserEmail)
             </div>
         </div>
+        @Html.HiddenFor(model=>model.UserEmail)
     }
 
     @if (string.IsNullOrEmpty(Model.UserName))
@@ -47,6 +48,7 @@
             @Html.DisplayFor(model => model.UserName)
         </div>
     </div>
+    @Html.HiddenFor(model => model.UserName)
     }
 
     <div class="form-group">

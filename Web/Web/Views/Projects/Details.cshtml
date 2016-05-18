@@ -23,7 +23,7 @@
 </div>
 
 
-@if (ViewBag.CanEdit != null && ViewBag.CanEdit == true)
+@if (Model.CanEdit == true)
 {
     <input type="button" value="Edit" modal-id="@Model.ProjectModel.Id" class="btn btn-default editButton" />
     using (Html.BeginForm("Delete", "Projects", new { id = Model.ProjectModel.Id }, FormMethod.Post, new { id = "delete-button" }))
@@ -33,19 +33,24 @@
     }
 }
 
+@if (Model.CanExpressInterest ==  true)
+{
 <div class="form-group" id="express-interes-form">
-    <input type="submit" value="Express interest" class="btn btn-default express_interest" />
+    <input type="submit" value="Express interest" class="btn btn-default express_interest" id="express_interest-button"/>
 
     <div style="display:none" id="express-interest-form">
-        @using (Ajax.BeginForm("ExpressInterest", "Projects", new { projectId = Model.ProjectModel.Id }, new AjaxOptions() { OnSuccess = "OnSumbitInterest" }))
-        {
-            @Html.AntiForgeryToken();
+        <div>
+            @using (Ajax.BeginForm("ExpressInterest", "Projects", new { projectId = Model.ProjectModel.Id }, new AjaxOptions() { OnSuccess = "OnSumbitInterest" }))
+            {
+                @Html.AntiForgeryToken();
 
-            @Html.Partial("~/Views/Projects/Partials/_ExpressInterest.cshtml", new Web.Models.View.ExpressInterestViewModel() { ProjectId = Model.ProjectModel.Id, ProjectName = Model.ProjectModel.Title })
-            <input type="submit" value="Send" class="btn btn-default" />
-        }
+                @Html.Partial("~/Views/Projects/Partials/_ExpressInterest.cshtml", new Web.Models.View.ExpressInterestViewModel() { ProjectId = Model.ProjectModel.Id, ProjectName = Model.ProjectModel.Title })
+                <div><input type="submit" value="Send" class="btn btn-default" /></div>
+            }
+        </div>
     </div>
 </div>
+}
 
 <div id="approve-modal-content">
 </div>

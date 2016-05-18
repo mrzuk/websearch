@@ -141,6 +141,8 @@ namespace Web
             // Call update once when all roles are removed
             return await UpdateAsync(user).ConfigureAwait(false);
         }
+
+      
     }
 
     public class ApplicationRoleManager : RoleManager<IdentityRole>

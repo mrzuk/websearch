@@ -42,11 +42,6 @@ namespace Web.Controllers
             }
             Project project = Db.Project.Find(id);
 
-            if (User.Identity.IsAuthenticated)
-                ViewBag.CanEdit = UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName);
-            else
-                ViewBag.CanEdit = false;
-
             if (project == null)
             {
                 return HttpNotFound();
@@ -60,6 +55,19 @@ namespace Web.Controllers
             string UserId = (User.Identity.IsAuthenticated) ? User.Identity.GetUserId() : "";
 
             DetailsView viewModel = new DetailsView() { ProjectModel = projectView };
+
+            if (User.Identity.IsAuthenticated) {
+                if (UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName)) {
+                    viewModel.CanExpressInterest = false;
+                    viewModel.CanEdit = true;
+                }
+                else
+                    viewModel.CanExpressInterest = true;
+            }
+            else {
+                viewModel.CanEdit = false;
+                viewModel.CanExpressInterest = true;
+            }
 
             return View(viewModel);
         }
@@ -96,14 +104,16 @@ namespace Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 viewModel.UserName = User.Identity.Name;
-                viewModel.UserEmail = Db.AspNetUsers.Where(u => u.Id == User.Identity.GetUserId()).Select(c => c.Id).Single();
+                string userId = User.Identity.GetUserId();
+                viewModel.UserEmail = Db.AspNetUsers.Where(u => u.Id == userId).Select(c => c.UserName).Single();
+
             }
             //ViewBag.UserId = new SelectList(Db.AspNetUsers, "Id", "Email");
             ViewBag.Cause = new SelectList(Db.Cause, "Id", "Description");
             ViewBag.SuitableLevel = new SelectList(Db.SuitableLevel, "Id", "Description");
             ViewBag.SuitableSubject = new SelectList(Db.SuitableSubject, "Id", "Description");
             //ViewBag.IsAdmin = UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName);
-            return View();
+            return View(viewModel);
         }
 
 
@@ -114,6 +124,10 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 project.Date = DateTime.UtcNow;
+                if (User.Identity.IsAuthenticated)
+                    if (UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName))
+                        project.IsApproved = true;
+
                 var projectDb = project.ViewToProject();
 
                 Db.Project.Add(projectDb);
@@ -217,8 +231,7 @@ namespace Web.Controllers
         {
             try
             {
-                if (User.Identity.IsAuthenticated)
-                {
+                
                     InterestedUsers_Projects user2Project = new InterestedUsers_Projects() { ProjectId = viewModel.ProjectId, UserEmail = viewModel.Email,UserName = viewModel.User};
                     Db.InterestedUsers_Projects.Add(user2Project);
 
@@ -243,9 +256,7 @@ namespace Web.Controllers
                         return RedirectToAction("Details", new { id = viewModel.ProjectId });
                     }
                         return new JsonResult() { Data = new { success = true } };
-                }
-                else
-                    return new JsonResult() { Data = new { userNotLogged = true } };
+        
             }
             catch (Exception ex)
             {

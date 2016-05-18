@@ -3,27 +3,23 @@
 @Html.HiddenFor(model=> model.ProjectId)
 @Html.HiddenFor(model => model.ProjectName)
 
-<div class="form-group">
-    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.Email, new { @class = "form-control", rows = 5 })
-        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-    </div>
+<div>
+    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })
+    @Html.EditorFor(model => model.Email, new { @class = "form-control", rows = 5 })
+    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
 </div>
 
-<div class="form-group">
-    @Html.LabelFor(model => model.User, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.User, new { @class = "form-control", rows = 5 })
-        @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
-    </div>
+<div>
+    @Html.LabelFor(model => model.User, htmlAttributes: new { @class=""})
+    @Html.EditorFor(model => model.User, new { @class = "form-control", rows = 5 })
+    @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
 </div>
 
+<div>
+    @Html.LabelFor(model => model.WhyInterested, htmlAttributes: new { @class = "" })
 
-<div class="form-group">
-    @Html.LabelFor(model => model.WhyInterested, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.TextAreaFor(model => model.WhyInterested, new { @class = "form-control", rows = 5 })
-        @Html.ValidationMessageFor(model => model.WhyInterested, "", new { @class = "text-danger" })
-    </div>
+    @Html.TextAreaFor(model => model.WhyInterested, new { @class = "form-control", rows = 5 })
+    @Html.ValidationMessageFor(model => model.WhyInterested, "", new { @class = "text-danger" })
+
 </div>
