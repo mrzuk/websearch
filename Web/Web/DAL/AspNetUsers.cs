@@ -20,8 +20,6 @@ namespace Web.DAL
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
-            this.Project = new HashSet<Project>();
-            this.InterestedUsers_Projects = new HashSet<InterestedUsers_Projects>();
         }
     
         public string Id { get; set; }
@@ -43,9 +41,5 @@ namespace Web.DAL
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Project> Project { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InterestedUsers_Projects> InterestedUsers_Projects { get; set; }
     }
 }

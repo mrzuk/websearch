@@ -9,13 +9,14 @@ CREATE TABLE [dbo].[Project] (
     [SourceLink]           NVARCHAR (MAX) NULL,
     [SuggestedReading] NVARCHAR (MAX) NULL,
 	[SuggestedMethods] NVARCHAR (MAX) NULL,
-    [UserId]           NVARCHAR (128) NOT NULL,
     [Date]             DATETIME       NOT NULL,
 	[IsApproved]		BIT NOT NULL DEFAULT 0,
 	[WasRevised]	BIT NOT NULL DEFAULT 0,
+	[AddedByName]	NVARCHAR (256) NOT NULL,
+	[AddedByEmail]	NVARCHAR (256) NOT NULL,
 	[Comment]		NVARCHAR (MAX) NULL,
-    CONSTRAINT [PK_dbo.Project] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_dbo.Project.AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+    CONSTRAINT [PK_dbo.Project] PRIMARY KEY CLUSTERED ([Id] ASC)
+
 );
 
 

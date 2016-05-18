@@ -23,7 +23,7 @@ namespace Web.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            List<ProjectView> project = Db.Project.Include(p => p.AspNetUsers).Include(p => p.Cause_Project).Include(p => p.SuitableLevel_Project).Include(p => p.SuitableSubjects_Project).Where(p => !p.IsApproved).ToList().Select(p => p.ProjectToProjectView()).ToList();
+            List<ProjectView> project = Db.Project.Include(p => p.Cause_Project).Include(p => p.SuitableLevel_Project).Include(p => p.SuitableSubjects_Project).Where(p => !p.IsApproved).ToList().Select(p => p.ProjectToProjectView()).ToList();
             ViewBag.IsAdmin = UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName);
             ViewBag.CanApprove = ViewBag.IsAdmin;
             ViewBag.CanEdit = ViewBag.IsAdmin;
@@ -58,15 +58,8 @@ namespace Web.Controllers
             ProjectView projectView = project.ProjectToProjectView();
 
             string UserId = (User.Identity.IsAuthenticated) ? User.Identity.GetUserId() : "";
-            bool isUserAlreadyInterested = false;
-            if (!string.IsNullOrEmpty(UserId))
-            {
-                var intereted = Db.InterestedUsers_Projects.Where(iup => iup.ProjectId == id && iup.UserId == UserId).FirstOrDefault();
-                if (intereted != null)
-                    isUserAlreadyInterested = true;
-            }
 
-            DetailsView viewModel = new DetailsView() { IsUserInterested = isUserAlreadyInterested, ProjectModel = projectView };
+            DetailsView viewModel = new DetailsView() { ProjectModel = projectView };
 
             return View(viewModel);
         }
@@ -97,27 +90,29 @@ namespace Web.Controllers
         }
 
         // GET: Projects/Create
-        [Authorize]
         public ActionResult Create()
         {
-
-            ViewBag.UserId = new SelectList(Db.AspNetUsers, "Id", "Email");
+            ProjectView viewModel = new ProjectView();
+            if (User.Identity.IsAuthenticated)
+            {
+                viewModel.UserName = User.Identity.Name;
+                viewModel.UserEmail = Db.AspNetUsers.Where(u => u.Id == User.Identity.GetUserId()).Select(c => c.Id).Single();
+            }
+            //ViewBag.UserId = new SelectList(Db.AspNetUsers, "Id", "Email");
             ViewBag.Cause = new SelectList(Db.Cause, "Id", "Description");
             ViewBag.SuitableLevel = new SelectList(Db.SuitableLevel, "Id", "Description");
             ViewBag.SuitableSubject = new SelectList(Db.SuitableSubject, "Id", "Description");
-            ViewBag.IsAdmin = UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName);
+            //ViewBag.IsAdmin = UserManager.IsInRole(User.Identity.GetUserId(), this.AdminRoleName);
             return View();
         }
 
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ProjectView project)
         {
             if (ModelState.IsValid)
             {
-                project.UserId = User.Identity.GetUserId();
                 project.Date = DateTime.UtcNow;
                 var projectDb = project.ViewToProject();
 
@@ -153,20 +148,20 @@ namespace Web.Controllers
             try
             {
                 string approvedBy = User.Identity.Name;
-                string received = project.AspNetUsers.Email;
+                string receiver = project.AddedByEmail;
                 Configuration configurations = Configuration.Create(Db);
                 EmailMssg mssg = new EmailMssg();
                 mssg.IsHtml = true;
-                mssg.Receivers = new List<string>() { received };
+                mssg.Receivers = new List<string>() { receiver };
                 mssg.SenderAddress = "no-reply@researchforgood.pl";
-                mssg.Subject = "Your project" +project.Title + " has been approved";
+                mssg.Subject = "Your project " +project.Title + " has been approved";
                 mssg.TemplateModel = new ApproveRejectModel() { Comment = model.Comment, ActionBy = approvedBy, ProjectName = project.Title };
                 mssg.TemplateString = System.IO.File.ReadAllText(Server.MapPath("~/Templates/ProjectApproved.html"));
 
                 EmailSender.Send(configurations, mssg);
             }
             catch (Exception ex) {
-                TempData["error"] = "Error while sending approvment email" + ex.InnerException.ToString();
+                TempData["error"] = "Error while sending approvment email" + ex.ToString();
             }
 
             return RedirectToAction("Index");
@@ -218,25 +213,44 @@ namespace Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ExpressInterest(int projectId)
+        public ActionResult ExpressInterest(ExpressInterestViewModel viewModel)
         {
             try
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    InterestedUsers_Projects user2Project = new InterestedUsers_Projects() { ProjectId = projectId, UserId = User.Identity.GetUserId() };
+                    InterestedUsers_Projects user2Project = new InterestedUsers_Projects() { ProjectId = viewModel.ProjectId, UserEmail = viewModel.Email,UserName = viewModel.User};
                     Db.InterestedUsers_Projects.Add(user2Project);
 
                     int written = Db.SaveChanges();
-                    return new JsonResult() { Data = new { success = true } };
+
+                    try
+                    {
+                        Configuration configurations = Configuration.Create(Db);
+                        EmailMssg mssg = new EmailMssg();
+                        mssg.IsHtml = true;
+                        mssg.Receivers = new List<string>() { configurations.ContactFormEmail };
+                        mssg.SenderAddress = configurations.ContactFormEmail;
+                        mssg.Subject = "User " + viewModel.User + " expressed interest in project ";
+                        mssg.TemplateModel = new ExpressInterestEmailModel() { ProjectName = viewModel.ProjectName,UserComment = viewModel.WhyInterested, UserEmail = viewModel.Email, UserName = viewModel.User };
+                        mssg.TemplateString = System.IO.File.ReadAllText(Server.MapPath("~/Templates/InterestedInProject.html"));
+
+                        EmailSender.Send(configurations, mssg);
+                    }
+                    catch (Exception ex)
+                    {
+                        string error = "Error while sending approvment email" + ex.InnerException.ToString();
+                        return RedirectToAction("Details", new { id = viewModel.ProjectId });
+                    }
+                        return new JsonResult() { Data = new { success = true } };
                 }
                 else
                     return new JsonResult() { Data = new { userNotLogged = true } };
             }
             catch (Exception ex)
             {
-                TempData["error"] = "Error while expressing interest";
-                return RedirectToAction("Details", new { id = projectId });
+                TempData["error"] = "Error while expressing interest" + ex.InnerException.ToString();
+                return RedirectToAction("Details", new { id = viewModel.ProjectId });
             }
         }
 

@@ -24,6 +24,7 @@ namespace Web.DAL
         }
     
         public int Id { get; set; }
+        public string Title { get; set; }
         public string ProjectArea { get; set; }
         public string Description { get; set; }
         public string SpecificProjects { get; set; }
@@ -32,14 +33,13 @@ namespace Web.DAL
         public string SourceLink { get; set; }
         public string SuggestedReading { get; set; }
         public string SuggestedMethods { get; set; }
-        public string UserId { get; set; }
         public System.DateTime Date { get; set; }
         public bool IsApproved { get; set; }
-        public string Title { get; set; }
         public bool WasRevised { get; set; }
+        public string AddedByName { get; set; }
+        public string AddedByEmail { get; set; }
         public string Comment { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cause_Project> Cause_Project { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

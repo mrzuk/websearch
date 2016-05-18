@@ -12,7 +12,7 @@
     $("#infoModal").modal("show");
 }
 
-function ShowEditModal() {
+function ShowExpressInterestModal() {
     document.addEventListener('DOMContentLoaded', function () {
 
         $("#express_interest-button").each(function () {

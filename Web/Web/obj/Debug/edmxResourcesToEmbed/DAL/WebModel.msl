@@ -87,27 +87,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Project">
-      <EntityTypeMapping TypeName="WebDbModel.Project">
-        <MappingFragment StoreEntitySet="Project">
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
-          <ScalarProperty Name="WasRevised" ColumnName="WasRevised" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="SuggestedMethods" ColumnName="SuggestedMethods" />
-          <ScalarProperty Name="SuggestedReading" ColumnName="SuggestedReading" />
-          <ScalarProperty Name="SourceLink" ColumnName="SourceLink" />
-          <ScalarProperty Name="Skills" ColumnName="Skills" />
-          <ScalarProperty Name="Impact" ColumnName="Impact" />
-          <ScalarProperty Name="SpecificProjects" ColumnName="SpecificProjects" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="SuitableLevel_Project">
       <EntityTypeMapping TypeName="WebDbModel.SuitableLevel_Project">
         <MappingFragment StoreEntitySet="SuitableLevel_Project">
@@ -126,20 +105,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="InterestedUsers_Projects">
-      <EntityTypeMapping TypeName="WebDbModel.InterestedUsers_Projects">
-        <MappingFragment StoreEntitySet="InterestedUsers_Projects">
-          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Configurations">
       <EntityTypeMapping TypeName="WebDbModel.Configurations">
         <MappingFragment StoreEntitySet="Configurations">
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Project">
+      <EntityTypeMapping TypeName="WebDbModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="AddedByEmail" ColumnName="AddedByEmail" />
+          <ScalarProperty Name="AddedByName" ColumnName="AddedByName" />
+          <ScalarProperty Name="WasRevised" ColumnName="WasRevised" />
+          <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="SuggestedMethods" ColumnName="SuggestedMethods" />
+          <ScalarProperty Name="SuggestedReading" ColumnName="SuggestedReading" />
+          <ScalarProperty Name="SourceLink" ColumnName="SourceLink" />
+          <ScalarProperty Name="Skills" ColumnName="Skills" />
+          <ScalarProperty Name="Impact" ColumnName="Impact" />
+          <ScalarProperty Name="SpecificProjects" ColumnName="SpecificProjects" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProjectArea" ColumnName="ProjectArea" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InterestedUsers_Projects">
+      <EntityTypeMapping TypeName="WebDbModel.InterestedUsers_Projects">
+        <MappingFragment StoreEntitySet="InterestedUsers_Projects">
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

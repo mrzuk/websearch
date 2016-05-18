@@ -18,7 +18,7 @@ namespace Web.DAL
         public int SuitableSubjectId { get; set; }
         public int ProjectId { get; set; }
     
-        public virtual Project Project { get; set; }
         public virtual SuitableSubject SuitableSubject { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

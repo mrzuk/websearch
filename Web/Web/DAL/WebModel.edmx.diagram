@@ -16,20 +16,18 @@
         <EntityTypeShape EntityType="WebDbModel.SuitableSubject" Width="1.5" PointX="10.75" PointY="1.375" />
         <EntityTypeShape EntityType="WebDbModel.SuitableLevel" Width="1.5" PointX="0.75" PointY="0.875" />
         <EntityTypeShape EntityType="WebDbModel.Cause_Project" Width="1.5" PointX="8.625" PointY="6.5" />
-        <EntityTypeShape EntityType="WebDbModel.Project" Width="1.5" PointX="5.25" PointY="0.75" />
         <EntityTypeShape EntityType="WebDbModel.SuitableLevel_Project" Width="1.5" PointX="7.5" PointY="1.875" />
         <EntityTypeShape EntityType="WebDbModel.SuitableSubjects_Project" Width="1.5" PointX="13" PointY="2.125" />
-        <AssociationConnector Association="WebDbModel.FK_dbo_Project_AspNetUsers_UserId" />
         <AssociationConnector Association="WebDbModel.FK_dbo_Cause_Project_CauseId" />
+        <AssociationConnector Association="WebDbModel.FK_dbo_SuitableLevel_Project_SuitableLevelId" />
+        <AssociationConnector Association="WebDbModel.FK_dbo_SuitableSubjects_Project_SuitableSubjectId" />
+        <EntityTypeShape EntityType="WebDbModel.Configurations" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="WebDbModel.Project" Width="1.5" PointX="5.25" PointY="0.75" />
         <AssociationConnector Association="WebDbModel.FK_dbo_Cause_Project_ProjectId" />
         <AssociationConnector Association="WebDbModel.FK_dbo_SuitableLevel_Project_ProjectId" />
         <AssociationConnector Association="WebDbModel.FK_dbo_SuitableSubjects_Project_ProjectId" />
-        <AssociationConnector Association="WebDbModel.FK_dbo_SuitableLevel_Project_SuitableLevelId" />
-        <AssociationConnector Association="WebDbModel.FK_dbo_SuitableSubjects_Project_SuitableSubjectId" />
-        <EntityTypeShape EntityType="WebDbModel.InterestedUsers_Projects" Width="1.5" PointX="11.5" PointY="5.625" />
-        <AssociationConnector Association="WebDbModel.FK_dbo_InterestedUsers_Projects_UserId" />
+        <EntityTypeShape EntityType="WebDbModel.InterestedUsers_Projects" Width="1.5" PointX="7.5" PointY="13.25" />
         <AssociationConnector Association="WebDbModel.FK_dbo_InterestedUsers_Projects_ProjectId" />
-        <EntityTypeShape EntityType="WebDbModel.Configurations" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

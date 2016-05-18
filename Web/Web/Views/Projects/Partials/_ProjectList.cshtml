@@ -10,8 +10,34 @@
 
         <h3>@Html.DisplayFor(modelItem => item.Title)</h3>
 
-        @Html.HiddenFor(modelItem => item.UserId)
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.UserName)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.UserName)
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.UserEmail)
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.ProjectArea)
+            </div>
+            <div class="col-md-9">
+                @Html.DisplayFor(modelItem => item.ProjectArea)
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-3">

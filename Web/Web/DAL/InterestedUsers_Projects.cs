@@ -15,10 +15,10 @@ namespace Web.DAL
     public partial class InterestedUsers_Projects
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
         public int ProjectId { get; set; }
+        public string UserName { get; set; }
+        public string UserEmail { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Project Project { get; set; }
     }
 }

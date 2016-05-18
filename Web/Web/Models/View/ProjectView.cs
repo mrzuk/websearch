@@ -39,7 +39,6 @@ namespace Web.Models.View
 
         [DisplayName("Suggested methods")]
         public string SuggestedMethods { get; set; }
-        public string UserId { get; set; }
 
         public System.DateTime? Date { get; set; }
 
@@ -47,6 +46,7 @@ namespace Web.Models.View
         public bool IsApproved { get; set; }
 
         [DisplayName("Added by")]
+        [Required(ErrorMessage = RequiredErrorMessage)]
         public string UserName { get; set; }
 
         public List<Cause> CauseCollection { get; set; }
@@ -71,6 +71,8 @@ namespace Web.Models.View
         [DisplayName("Interested users")]
         public List<string> InterestedUsers { get; set; }
 
+        [Required(ErrorMessage = RequiredErrorMessage)]
+        public string UserEmail { get; set; }
 
      }
 

@@ -33,10 +33,10 @@ namespace Web.DAL
         public virtual DbSet<SuitableSubject> SuitableSubject { get; set; }
         public virtual DbSet<SuitableLevel> SuitableLevel { get; set; }
         public virtual DbSet<Cause_Project> Cause_Project { get; set; }
-        public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<SuitableLevel_Project> SuitableLevel_Project { get; set; }
         public virtual DbSet<SuitableSubjects_Project> SuitableSubjects_Project { get; set; }
-        public virtual DbSet<InterestedUsers_Projects> InterestedUsers_Projects { get; set; }
         public virtual DbSet<Configurations> Configurations { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<InterestedUsers_Projects> InterestedUsers_Projects { get; set; }
     }
 }

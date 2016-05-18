@@ -70,7 +70,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Key" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
@@ -79,14 +79,16 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ProjectArea" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="SpecificProjects" Type="nvarchar(max)" />
@@ -95,11 +97,11 @@
     <Property Name="SourceLink" Type="nvarchar(max)" />
     <Property Name="SuggestedReading" Type="nvarchar(max)" />
     <Property Name="SuggestedMethods" Type="nvarchar(max)" />
-    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="IsApproved" Type="bit" Nullable="false" />
-    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="WasRevised" Type="bit" Nullable="false" />
+    <Property Name="AddedByName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="AddedByEmail" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="Comment" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SuitableLevel">
@@ -217,7 +219,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_dbo_InterestedUsers_Projects_ProjectId">
-    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="InterestedUsers_Projects" Type="Self.InterestedUsers_Projects" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Project">
@@ -225,30 +229,6 @@
       </Principal>
       <Dependent Role="InterestedUsers_Projects">
         <PropertyRef Name="ProjectId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_dbo_InterestedUsers_Projects_UserId">
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-    <End Role="InterestedUsers_Projects" Type="Self.InterestedUsers_Projects" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="InterestedUsers_Projects">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_dbo_Project_AspNetUsers_UserId">
-    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-    <End Role="Project" Type="Self.Project" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetUsers">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Project">
-        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -350,14 +330,6 @@
     <AssociationSet Name="FK_dbo_InterestedUsers_Projects_ProjectId" Association="Self.FK_dbo_InterestedUsers_Projects_ProjectId">
       <End Role="Project" EntitySet="Project" />
       <End Role="InterestedUsers_Projects" EntitySet="InterestedUsers_Projects" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_InterestedUsers_Projects_UserId" Association="Self.FK_dbo_InterestedUsers_Projects_UserId">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="InterestedUsers_Projects" EntitySet="InterestedUsers_Projects" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_Project_AspNetUsers_UserId" Association="Self.FK_dbo_Project_AspNetUsers_UserId">
-      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-      <End Role="Project" EntitySet="Project" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_SuitableLevel_Project_ProjectId" Association="Self.FK_dbo_SuitableLevel_Project_ProjectId">
       <End Role="Project" EntitySet="Project" />

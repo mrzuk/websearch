@@ -7,7 +7,6 @@ namespace Web.Models.View
 {
     public class DetailsView
     {
-        public bool IsUserInterested { get; set; }
         public ProjectView ProjectModel { get; set; }
     }
 }
