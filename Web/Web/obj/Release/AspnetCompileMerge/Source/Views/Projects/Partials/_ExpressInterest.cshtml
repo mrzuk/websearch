@@ -1,0 +1,25 @@
+﻿@model Web.Models.View.ExpressInterestViewModel
+
+@Html.HiddenFor(model=> model.ProjectId)
+@Html.HiddenFor(model => model.ProjectName)
+
+<div>
+    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "" })
+    @Html.EditorFor(model => model.Email, new { @class = "form-control", rows = 5 })
+    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+</div>
+
+<div>
+    @Html.LabelFor(model => model.User, htmlAttributes: new { @class=""})
+    @Html.EditorFor(model => model.User, new { @class = "form-control", rows = 5 })
+    @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+</div>
+
+<div>
+    @Html.LabelFor(model => model.WhyInterested, htmlAttributes: new { @class = "" })
+
+    @Html.TextAreaFor(model => model.WhyInterested, new { @class = "form-control", rows = 5 })
+    @Html.ValidationMessageFor(model => model.WhyInterested, "", new { @class = "text-danger" })
+
+</div>

@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cause">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cause_Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="CauseId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Configurations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InterestedUsers_Projects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="UserEmail" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProjectArea" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SpecificProjects" Type="nvarchar(max)" />
+    <Property Name="Impact" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Skills" Type="nvarchar(max)" />
+    <Property Name="SourceLink" Type="nvarchar(max)" />
+    <Property Name="SuggestedReading" Type="nvarchar(max)" />
+    <Property Name="SuggestedMethods" Type="nvarchar(max)" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="WasRevised" Type="bit" Nullable="false" />
+    <Property Name="AddedByName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="AddedByEmail" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="SuitableLevel">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SuitableLevel_Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SuitableLevelId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SuitableSubject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SuitableSubjects_Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SuitableSubjectId" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Cause_Project_CauseId">
+    <End Role="Cause" Type="Self.Cause" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Cause_Project" Type="Self.Cause_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cause">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cause_Project">
+        <PropertyRef Name="CauseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Cause_Project_ProjectId">
+    <End Role="Project" Type="Self.Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Cause_Project" Type="Self.Cause_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cause_Project">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_InterestedUsers_Projects_ProjectId">
+    <End Role="Project" Type="Self.Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="InterestedUsers_Projects" Type="Self.InterestedUsers_Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterestedUsers_Projects">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SuitableLevel_Project_ProjectId">
+    <End Role="Project" Type="Self.Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SuitableLevel_Project" Type="Self.SuitableLevel_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SuitableLevel_Project">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SuitableLevel_Project_SuitableLevelId">
+    <End Role="SuitableLevel" Type="Self.SuitableLevel" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SuitableLevel_Project" Type="Self.SuitableLevel_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SuitableLevel">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SuitableLevel_Project">
+        <PropertyRef Name="SuitableLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SuitableSubjects_Project_ProjectId">
+    <End Role="Project" Type="Self.Project" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SuitableSubjects_Project" Type="Self.SuitableSubjects_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SuitableSubjects_Project">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_SuitableSubjects_Project_SuitableSubjectId">
+    <End Role="SuitableSubject" Type="Self.SuitableSubject" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SuitableSubjects_Project" Type="Self.SuitableSubjects_Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SuitableSubject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SuitableSubjects_Project">
+        <PropertyRef Name="SuitableSubjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebDbModelStoreContainer">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cause" EntityType="Self.Cause" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cause_Project" EntityType="Self.Cause_Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Configurations" EntityType="Self.Configurations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InterestedUsers_Projects" EntityType="Self.InterestedUsers_Projects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SuitableLevel" EntityType="Self.SuitableLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SuitableLevel_Project" EntityType="Self.SuitableLevel_Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SuitableSubject" EntityType="Self.SuitableSubject" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SuitableSubjects_Project" EntityType="Self.SuitableSubjects_Project" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Cause_Project_CauseId" Association="Self.FK_dbo_Cause_Project_CauseId">
+      <End Role="Cause" EntitySet="Cause" />
+      <End Role="Cause_Project" EntitySet="Cause_Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Cause_Project_ProjectId" Association="Self.FK_dbo_Cause_Project_ProjectId">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Cause_Project" EntitySet="Cause_Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_InterestedUsers_Projects_ProjectId" Association="Self.FK_dbo_InterestedUsers_Projects_ProjectId">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="InterestedUsers_Projects" EntitySet="InterestedUsers_Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SuitableLevel_Project_ProjectId" Association="Self.FK_dbo_SuitableLevel_Project_ProjectId">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="SuitableLevel_Project" EntitySet="SuitableLevel_Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SuitableLevel_Project_SuitableLevelId" Association="Self.FK_dbo_SuitableLevel_Project_SuitableLevelId">
+      <End Role="SuitableLevel" EntitySet="SuitableLevel" />
+      <End Role="SuitableLevel_Project" EntitySet="SuitableLevel_Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SuitableSubjects_Project_ProjectId" Association="Self.FK_dbo_SuitableSubjects_Project_ProjectId">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="SuitableSubjects_Project" EntitySet="SuitableSubjects_Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_SuitableSubjects_Project_SuitableSubjectId" Association="Self.FK_dbo_SuitableSubjects_Project_SuitableSubjectId">
+      <End Role="SuitableSubject" EntitySet="SuitableSubject" />
+      <End Role="SuitableSubjects_Project" EntitySet="SuitableSubjects_Project" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

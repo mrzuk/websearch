@@ -243,7 +243,7 @@ namespace Web.Controllers
                         EmailMssg mssg = new EmailMssg();
                         mssg.IsHtml = true;
                         mssg.Receivers = new List<string>() { configurations.ContactFormEmail };
-                        mssg.SenderAddress = configurations.ContactFormEmail;
+                        mssg.SenderAddress = configurations.ftpConfig.Login;
                         mssg.Subject = "User " + viewModel.User + " expressed interest in project ";
                         mssg.TemplateModel = new ExpressInterestEmailModel() { ProjectName = viewModel.ProjectName,UserComment = viewModel.WhyInterested, UserEmail = viewModel.Email, UserName = viewModel.User };
                         mssg.TemplateString = System.IO.File.ReadAllText(Server.MapPath("~/Templates/InterestedInProject.html"));
@@ -252,7 +252,8 @@ namespace Web.Controllers
                     }
                     catch (Exception ex)
                     {
-                        string error = "Error while sending approvment email" + ex.InnerException.ToString();
+                        string error = "Error while sending approvment email" + ex.ToString();
+                        TempData["error"] = error;
                         return RedirectToAction("Details", new { id = viewModel.ProjectId });
                     }
                         return new JsonResult() { Data = new { success = true } };
@@ -260,7 +261,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = "Error while expressing interest" + ex.InnerException.ToString();
+                TempData["error"] = "Error while expressing interest" + ex.ToString();
                 return RedirectToAction("Details", new { id = viewModel.ProjectId });
             }
         }

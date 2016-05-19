@@ -48,7 +48,7 @@ namespace Web.Controllers
             }
             catch(Exception ex)
             {
-                TempData["error"] = "Error while sending email: " + ex.InnerException.ToString();
+                TempData["error"] = "Error while sending email: " + ex.ToString();
             }
             return View();
         }

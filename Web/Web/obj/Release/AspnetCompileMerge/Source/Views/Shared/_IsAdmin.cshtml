@@ -1,0 +1,7 @@
+﻿@model Web.Models.View.IsUserAdmin
+
+@{
+    if (Model.IsAdministrator)
+    {<li>@Html.ActionLink("Approve projects", "Index", "Projects") </li>}
+
+}

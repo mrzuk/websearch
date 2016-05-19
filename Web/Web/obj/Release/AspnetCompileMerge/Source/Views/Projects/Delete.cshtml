@@ -1,0 +1,136 @@
+﻿@*@model Web.DAL.Project
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecificProjects)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecificProjects)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Impact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Impact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Skills)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Skills)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SourceLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SourceLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuggestedReading)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuggestedReading)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuggestedMethods)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuggestedMethods)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUsers.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUsers.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cause.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cause.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuitableLevel.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuitableLevel.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SuitableSubject.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SuitableSubject.Description)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>*@

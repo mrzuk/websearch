@@ -1,0 +1,52 @@
+﻿@model Web.Models.View.SearchModel
+
+@using Web.Helpers;
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<script type="text/javascript">
+    function onSearchComplete(result) {
+        if (result.info) {
+            $('#messageModalInfo').html(result.info);
+            $('#SuccessTitle').html("Search");
+            $('#infoModal').modal("show")
+        }
+        else {
+            $('#searchResults').html(result);
+        }
+    }
+
+</script>
+
+
+@using (Ajax.BeginForm(new AjaxOptions() { OnSuccess = "onSearchComplete"}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+         Subject: @Html.DropDownListFor(model=> model.SubjectId, (SelectList)ViewBag.SuitableSubject)
+    </div>
+
+    <div class="form-group">
+         Cause: @Html.DropDownListFor(model => model.CauseId, (SelectList)ViewBag.Cause)
+   </div>
+
+        <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-default" />           
+        </div>
+
+}
+
+<div id="searchResults">
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquerajax")
+}

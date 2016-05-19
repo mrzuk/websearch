@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Web.Models.View.ProjectView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Projects to approve</h2>
+
+
+@if (Model.Count() == 0)
+{
+    <p>
+        No projects to approve
+    </p>
+}
+else
+{
+    foreach (Web.Models.View.ProjectView item in Model)
+    {
+        @Html.Partial("~/Views/Projects/Partials/_ProjectDetail.cshtml", item)
+
+        <div class="editHidden" id="@item.Id">
+            <div class="project-list-horizontal">
+                <hr />
+                @using (Ajax.BeginForm("Edit", "Projects", new { id = item.Id }, new AjaxOptions() { OnSuccess = "return reloadPage()" }, new { onsubmit = "return onBeforeSubmit(this);", }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("~/Views/Projects/Partials/_EditCreate.cshtml", item)
+                }
+            </div>
+        </div>
+
+        if (ViewBag.CanApprove != null && ViewBag.CanApprove)
+        {
+            var approveId = (item.Id + "_approveForm");
+            <input type="button" value="Approve" approve-form-id=@approveId class="btn btn-default approve-button" />
+            <div class="editHidden">
+                @using (Html.BeginForm("ApproveProject", "Projects", null, FormMethod.Post, new { id = @item.Id + "_approveForm" }))
+                {
+                    @Html.Partial("~/Views/Projects/Partials/_ApproveView.cshtml", new Web.Models.View.ApproveViewModel() { ProjectId = item.Id })
+                    <div class="form-group">
+                        <input type="submit" value="Approve" class="btn btn-default" />
+                    </div>
+                }
+            </div>
+
+        }
+        if (ViewBag.CanEdit != null && ViewBag.CanEdit == true)
+        {
+            <input type="button" value="Edit" modal-id="@item.Id" class="btn btn-default editButton" />
+            using (Html.BeginForm("Delete", "Projects", new { id = item.Id }, FormMethod.Post, new { id = "delete-button" }))
+            {
+                @Html.AntiForgeryToken();
+                <input type="submit" value="Delete" class="btn btn-default" />
+            }
+        }
+    }
+}
+
+<div id="approve-modal-content">
+
+
+</div>
+
+<div class="modal fade" id="infoProjectListModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <<div class="modal-dialog">
+        <div class="modal-content">
+            <div id="modal-projectlist-content">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jquerajax")
+@Scripts.Render("~/bundles/Approve")
+<script>ApproveBiding()</script>
+
+<script>
+    ShowEditModal();
+</script>
+}

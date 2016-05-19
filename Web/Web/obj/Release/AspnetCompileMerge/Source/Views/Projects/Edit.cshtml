@@ -1,0 +1,18 @@
+﻿@model Web.Models.View.ProjectView
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("~/Views/Projects/Partials/_EditCreate.cshtml", Model)
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
