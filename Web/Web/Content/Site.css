@@ -1,12 +1,15 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html,body{
+     min-height:100% !important;
+     height:100% !important;
+            background:#D3EFF4;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
+
     padding-left: 15px;
     padding-right: 15px;
+    margin-top:140px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -60,4 +63,60 @@ textarea {
 
 #delete-button{
     display:inline-block;
+}
+
+.navbar-nav {
+    color:white !important;
+}
+
+#footer {
+
+   width:100%;
+   height:180px;   /* Height of the footer */
+   background:#00CC99;
+}  
+
+.body-content{
+    height:100% !important;
+}
+
+#container{
+    width:100%;
+    height:100%;
+
+}
+
+.img_logotype_eap{
+    width:200px;
+    height:91px;
+}
+
+.img_logotype_cfea{
+    width:166px;
+    height:50px;
+}
+
+.img_logotype_gpp{
+    width:103px;
+    height:115px;
+}
+#images{
+    text-align:right;
+}
+#images img{
+
+    margin:20px;
+}
+
+#projected_by{
+     font-style: italic;
+     margin:0 auto;
+     text-align: center;
+     color:white;
+}
+
+#projected_by span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;      
 }
