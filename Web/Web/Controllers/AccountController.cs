@@ -9,11 +9,13 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Web.Models;
+using Web.Models.View;
+using System.Collections.Generic;
 
 namespace Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -59,6 +61,15 @@ namespace Web.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        [Authorize(Roles ="Admin")]
+        public ActionResult AddUserToRole()
+        {
+            AddUserToRoleViewModel viewModel = new AddUserToRoleViewModel();
+            Dictionary<string, string> Users = new Dictionary<string, string>();
+            Db.AspNetUsers.ToList().ForEach(c => Users.Add(c.Id, c.UserName));
+            return View(viewModel);
         }
 
         //

@@ -253,6 +253,7 @@
     <Compile Include="Models\Helpers\ProjectViewHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\View\AddUserToRoleViewModel.cs" />
     <Compile Include="Models\View\ApproveViewModel.cs" />
     <Compile Include="Models\View\ConfigurationView.cs" />
     <Compile Include="Models\View\DetailsView.cs" />

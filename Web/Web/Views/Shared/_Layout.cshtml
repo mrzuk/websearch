@@ -36,9 +36,15 @@
                     </li>             
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                            <li>
-                                @Html.ActionLink("Configurations", "Index", "Configurations")
-                            </li>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    @Html.ActionLink("Create new account", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                                </li>
+                                <li>
+
+                                    @Html.ActionLink("Configurations", "Index", "Configurations")
+                                </li>
+                            </ul>
                         }
 
                 </ul>
