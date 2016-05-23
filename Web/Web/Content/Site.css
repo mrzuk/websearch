@@ -120,3 +120,24 @@ textarea {
   vertical-align: middle;
   line-height: normal;      
 }
+
+#search{
+    text-align:center;
+    margin-top:10px;
+}
+
+#search_options{
+   
+    width: 50%;
+    margin: 0 auto;
+     margin-top:5em;
+     margin-bottom:5em;
+}
+
+#search_options table {
+     border-spacing: 10px;
+}
+
+#search_options{
+    font-size:20px;
+}

@@ -42,15 +42,18 @@
                     </li>             
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
-                            <ul class="dropdown-menu">
-                                <li>
-                                    @Html.ActionLink("Create new account", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-                                </li>
-                                <li>
+                            <li>
+                                <a data-toggle="dropdown" id="projectLink">Admin action</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @Html.ActionLink("Create new account", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                                    </li>
+                                    <li>
 
-                                    @Html.ActionLink("Configurations", "Index", "Configurations")
-                                </li>
-                            </ul>
+                                        @Html.ActionLink("Configurations", "Index", "Configurations")
+                                    </li>
+                                </ul>
+                            </li>
                         }
                     @Html.Partial("_LoginPartial")
                 </ul>

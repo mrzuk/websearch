@@ -303,8 +303,10 @@
     <Content Include="DAL\WebModel.edmx.diagram">
       <DependentUpon>WebModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\New.pubxml" />
     <None Include="Properties\PublishProfiles\research4good.hostingasp.pl - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\smartasp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -11,6 +11,7 @@
 
 </head>
 <body>
+    <div id="container">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -19,11 +20,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Research for Good", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div id="u47" class="text">
+                    <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">RESEARCH</span>
+                    <br/>
+                    <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">FOR</span><span style="font-family:'Asap';font-weight:400;color:#333333;">&nbsp;</span><span style="font-family:'Asap Bold', 'Asap';font-weight:700;color:#00CC99;">GOOD</span>
+                </div>
+              
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Home", "Search", "Projects")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>
@@ -37,24 +43,31 @@
                         @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
                             <li>
-                                @Html.ActionLink("Configurations", "Index", "Configurations")
+                                <a data-toggle="dropdown" id="projectLink">Admin action</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        @Html.ActionLink("Create new account", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                                    </li>
+                                    <li>
+
+                                        @Html.ActionLink("Configurations", "Index", "Configurations")
+                                    </li>
+                                </ul>
                             </li>
                         }
-
+                    @Html.Partial("_LoginPartial")
                 </ul>
-                @Html.Partial("_LoginPartial")
+               
             </div>
                
                 
             </div>
         </div>
-    </div>
+ 
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Research for Good</p>
-        </footer>
+      
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -63,5 +76,14 @@
     @Html.Partial("~/Views/Shared/_InfoModals.cshtml");
 
     @RenderSection("scripts", required: false)
+    <div id="footer">
+        <div id="images">
+            <img src="~/Content/img/eap.png" class="img_logotype_eap" />
+            <img src="~/Content/img/cfea.png" class="img_logotype_cfea" />
+            <img src="~/Content/img/gpp.png" class="img_logotype_gpp" />
+        </div>
+        <div id="projected_by"><span>website designed by volunteers of EA Poland</span></div>
+    </div>
+    </div>
 </body>
 </html>

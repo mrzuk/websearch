@@ -28,7 +28,7 @@ namespace Web.Models
         [Required]
         public string Provider { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
         [Display(Name = "Code")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
@@ -41,19 +41,18 @@ namespace Web.Models
 
     public class ForgotViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Required(ErrorMessage ="This field is required")]
+        [Display(Name = "User name")]
+        public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="This field is required")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -65,17 +64,16 @@ namespace Web.Models
     public class RegisterViewModel
     {
         [Required(ErrorMessage ="This field is required")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage ="Text is not a proper email address")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage ="This field is required")]
-        [EmailAddress]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage ="This field is required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -89,12 +87,12 @@ namespace Web.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -110,7 +108,7 @@ namespace Web.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
