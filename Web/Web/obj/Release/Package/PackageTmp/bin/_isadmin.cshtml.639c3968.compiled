@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<preserve resultType="2" virtualPath="/Views/Shared/_IsAdmin.cshtml" hash="ffffffffc50725c1" filehash="1b43f98938f1" flags="110000" assembly="App_Web_bycymjw1" type="ASP._Page_Views_Shared__IsAdmin_cshtml">
+<preserve resultType="2" virtualPath="/Views/Shared/_IsAdmin.cshtml" hash="ffffffffc50725c1" filehash="1b43f98938f1" flags="110000" assembly="App_Web_mdbdvjmj" type="ASP._Page_Views_Shared__IsAdmin_cshtml">
     <filedeps>
         <filedep name="/Views/Shared/_IsAdmin.cshtml" />
     </filedeps>
