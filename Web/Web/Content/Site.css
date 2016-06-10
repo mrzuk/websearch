@@ -161,3 +161,16 @@ textarea {
 #search_options{
     font-size:20px;
 }
+
+#u47{
+    line-height:90%;
+    display:inline-block;
+}
+
+#log-text{
+   color:white;
+    display:inline-block;
+    vertical-align:top;
+    margin-top:10px;
+    line-height:150%;
+}

@@ -1,15 +1,10 @@
-﻿@model IEnumerable<Web.Models.View.SearchResultsModel>
+﻿@model PagedList.IPagedList<Web.Models.View.SearchResultsModel>
+@using PagedList.Mvc;
+
 
 @using Web.Helpers;
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-       
-        <th></th>
-    </tr>
+<table class="table" id="searchResutls">
 
     @foreach (var item in Model)
     {
@@ -24,3 +19,19 @@
     }
 
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Search",
+    new { page}))
+
+<script type="text/javascript">
+    $(".pagination-container a").on("click", function (event) {
+        event.preventDefault();
+        var pageNum = this.href.substring(this.href.indexOf("=")+1)
+        $("#page").val(pageNum)
+        
+        $("#search").find("form").submit();
+    })
+
+</script>

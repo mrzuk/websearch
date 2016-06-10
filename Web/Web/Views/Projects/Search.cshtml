@@ -26,7 +26,6 @@
 
     @using (Ajax.BeginForm(new AjaxOptions() { OnSuccess = "onSearchComplete" }))
     {
-        @Html.AntiForgeryToken()
 
         <div id="search_options">
             <table>
@@ -40,6 +39,7 @@
                 </tr>
             </table>
         </div>
+        <input type="hidden" name="page" id="page" value="1"/>
         <div class="form-group">
             <input type="submit" value="Search" class="btn btn-default" />
         </div>

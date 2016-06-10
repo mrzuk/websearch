@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -83,13 +84,14 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Search(SearchModel model)
+        public ActionResult Search(SearchModel searchModel,int? page)
         {
-            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == model.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == model.SubjectId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title });
-
+            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title });
+            int pageN = (page ?? 1);
+            ViewBag.CauseId = searchModel.CauseId;
+            ViewBag.SubjectId = searchModel.SubjectId;
             if (projectList.Count() > 0)
-                return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml", projectList);
+                return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml", projectList.ToPagedList(pageN, 3));
             else
             {
 

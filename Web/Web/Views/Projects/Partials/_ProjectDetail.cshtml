@@ -1,9 +1,18 @@
 ﻿@model Web.Models.View.ProjectView
 
 <div class="project-list-horizontal">
-    <hr />
 
-    <h3>@Html.DisplayFor(model => model.Title)</h3>
+
+
+    <div class="row">
+        <div class="col-md-6 project-details-label">Causes:</div>
+        <div class="col-md-6 project-details-label">Added by:</div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">@string.Join(", ", Model.CauseCollection.Select(t => t.Description).ToArray())</div>
+        <div class="col-md-6">@Html.DisplayFor(model => model.UserName)</div>
+    </div>
 
 
     <div class="row">

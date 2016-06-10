@@ -20,12 +20,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <div id="u47" class="text">
-                    <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">RESEARCH</span>
-                    <br/>
-                    <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">FOR</span><span style="font-family:'Asap';font-weight:400;color:#333333;">&nbsp;</span><span style="font-family:'Asap Bold', 'Asap';font-weight:700;color:#00CC99;">GOOD</span>
+                <div>
+                    <div id="u47">
+                        <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">RESEARCH</span>
+
+                        <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">FOR</span><span style="font-family:'Asap';font-weight:400;color:#333333;">&nbsp;</span><span style="font-family:'Asap Bold', 'Asap';font-weight:700;color:#00CC99;">GOOD</span>
+                    </div>
+                    <div id="log-text">
+                        Connecting altruistic
+                        <br />
+                        researchers to projects
+                        <br/>
+                        that make a <span style="color:#00CC99;">difference</span>
+                    </div>
                 </div>
-              
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -36,7 +44,8 @@
                             <a data-toggle="dropdown" id="projectLink">Projects</a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Search", "Search", "Projects")</li>
-                                <li>@Html.ActionLink("Create New", "Create","Projects")</li>
+                                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                                {<li>@Html.ActionLink("Create New", "Create", "Projects")</li>}
                                 @{ Html.RenderAction("IsAdmin", "Layout"); }
                             </ul>
                     </li>             
