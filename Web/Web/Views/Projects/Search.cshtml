@@ -36,6 +36,10 @@
                     <td>
                         Choose a cause: @Html.DropDownListFor(model => model.CauseId, (SelectList)ViewBag.Cause)
                     </td>
+
+                    <td>
+                        Choose level of study: @Html.DropDownListFor(model => model.LevelId, (SelectList)ViewBag.Level)
+                    </td>
                 </tr>
             </table>
         </div>

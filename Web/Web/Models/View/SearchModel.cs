@@ -9,5 +9,7 @@ namespace Web.Models.View
     {
         public int CauseId { get; set; }
         public int SubjectId { get; set; }
+
+        public int LevelId { get; set; }
     }
 }

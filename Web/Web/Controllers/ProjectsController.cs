@@ -78,6 +78,8 @@ namespace Web.Controllers
             ViewBag.Cause = new SelectList(Db.Cause, "Id", "Description");
             ViewBag.SuitableSubject = new SelectList(Db.SuitableSubject, "Id", "Description");
 
+            ViewBag.Level = new SelectList(Db.SuitableLevel, "Id", "Description");
+
             SearchModel model = new SearchModel();
 
             return View(model);
@@ -86,12 +88,12 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Search(SearchModel searchModel,int? page)
         {
-            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title });
+            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId) && p.SuitableLevel_Project.Any(cp=>cp.SuitableLevelId == searchModel.LevelId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title });
             int pageN = (page ?? 1);
             ViewBag.CauseId = searchModel.CauseId;
             ViewBag.SubjectId = searchModel.SubjectId;
             if (projectList.Count() > 0)
-                return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml", projectList.ToPagedList(pageN, 3));
+                return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml", projectList.ToPagedList(pageN, 10));
             else
             {
 

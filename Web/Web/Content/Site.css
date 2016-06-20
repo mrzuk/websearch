@@ -174,3 +174,7 @@ textarea {
     margin-top:10px;
     line-height:150%;
 }
+
+.project-details-label{
+    font-weight:bold;
+}

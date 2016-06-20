@@ -9,55 +9,58 @@
         <div class="col-md-6 project-details-label">Added by:</div>
 
     </div>
+
     <div class="row">
         <div class="col-md-6">@string.Join(", ", Model.CauseCollection.Select(t => t.Description).ToArray())</div>
         <div class="col-md-6">@Html.DisplayFor(model => model.UserName)</div>
     </div>
 
-
     <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayNameFor(model => model.ProjectArea)
-        </div>
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.ProjectArea)
-        </div>
+        <div class="col-md-6 project-details-label">Project Area:</div>
+        <div class="col-md-6 project-details-label">Description:</div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">@Html.DisplayFor(model => model.ProjectArea)</div>
+        <div class="col-md-6">@Html.DisplayFor(model => model.Description)</div>
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayNameFor(model => model.Description)
-        </div>
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.Description)
-        </div>
+        <div class="col-md-6 project-details-label">Specific projects:</div>
+        <div class="col-md-6 project-details-label">Impact:</div>
+
     </div>
 
     <div class="row">
-        <div class="col-md-3">@Html.DisplayNameFor(model => model.SpecificProjects)</div>
-
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.SpecificProjects)
-        </div>
+        <div class="col-md-6">@Html.DisplayFor(model => model.SpecificProjects)</div>
+        <div class="col-md-6">@Html.DisplayFor(model => model.Impact)</div>
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayNameFor(model => model.Impact)
-        </div>
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.Impact)
-        </div>
+        <div class="col-md-6 project-details-label">Skills required:</div>
+        <div class="col-md-6 project-details-label">Added date:</div>
+
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayNameFor(model => model.Skills)
-        </div>
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.Skills)
-        </div>
+        <div class="col-md-6">@Html.DisplayFor(model => model.Skills)</div>
+        <div class="col-md-6">@Html.DisplayFor(model => model.Date)</div>
     </div>
+
+
+    <div class="row">
+        <div class="col-md-6 project-details-label">Level of study:</div>
+        <div class="col-md-6 project-details-label">Subject of study:</div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">@string.Join(", ", Model.LevelCollection.Select(t => t.Description).ToArray())</div>
+        <div class="col-md-6">@string.Join(", ", Model.SubjectCollection.Select(t => t.Description).ToArray())</div>
+    </div>
+
+
+
 
     @if (Model.SourceLink != null)
     {
@@ -93,53 +96,6 @@
             </div>
         </div>
     }
-
-    <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayNameFor(model => model.Date)
-        </div>
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.Date)
-        </div>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayNameFor(model => model.UserName)
-        </div>
-        <div class="col-md-9">
-            @Html.DisplayFor(model => model.UserName)
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            Causes
-        </div>
-        <div class="col-md-9">
-            @string.Join(", ", Model.CauseCollection.Select(t => t.Description).ToArray())
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            Level
-        </div>
-        <div class="col-md-9">
-            @string.Join(", ", Model.LevelCollection.Select(t => t.Description).ToArray())
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            @Html.DisplayNameFor(model => model.SuitableSubjects)
-        </div>
-        <div class="col-md-9">
-            @string.Join(", ", Model.SubjectCollection.Select(t => t.Description).ToArray())
-        </div>
-    </div>
 
     @if (Model.InterestedUsers.Count() > 0)
     {
