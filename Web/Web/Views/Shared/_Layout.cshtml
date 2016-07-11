@@ -9,92 +9,88 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+
+
 </head>
 <body>
-    <div id="container">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header class="top" role="header">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <div>
-                    <div id="u47">
-                        <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">RESEARCH</span>
-
-                        <span style="font-family:'Asap';font-weight:400;color:#FFFFFF;">FOR</span><span style="font-family:'Asap';font-weight:400;color:#333333;">&nbsp;</span><span style="font-family:'Asap Bold', 'Asap';font-weight:700;color:#00CC99;">GOOD</span>
-                    </div>
-                    <div id="log-text">
-                        Connecting altruistic
-                        <br />
-                        researchers to projects
-                        <br/>
-                        that make a <span style="color:#00CC99;">difference</span>
-                    </div>
-                </div>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Home", "Search", "Projects")</li>
+            <a href='@Url.Action("Search", "Projects")' class="navbar-brand pull-left">
+                <img src="~/Content/img/u31.png" />
+            </a>
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="glyphicon glyphicon-align-justify"></span>
+            </button>
+            <nav class="navbar-collapse collapse  pull-right" role="navigation">
+                <ul class="navbar-nav nav">
+                    <li>@Html.ActionLink("Take on project", "TakeOnAProject", "Projects")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>
-                            <a data-toggle="dropdown" id="projectLink">Projects</a>
-                            <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Search", "Search", "Projects")</li>
-                                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                                {<li>@Html.ActionLink("Create New", "Create", "Projects")</li>}
-                                @{ Html.RenderAction("IsAdmin", "Layout"); }
-                            </ul>
-                    </li>             
-                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                        {
-                            <li>
-                                <a data-toggle="dropdown" id="projectLink">Admin action</a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        @Html.ActionLink("Create new account", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
-                                    </li>
-                                    <li>
-
-                                        @Html.ActionLink("Configurations", "Index", "Configurations")
-                                    </li>
-                                </ul>
-                            </li>
-                        }
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Contact us</a>
+                        <ul class="dropdown-menu">
+                            <li><a href='@Url.Action("Contact", "Home")'>General inquiries</a></li>
+                            <li><a href='@Url.Action( "SubmitAProject","Projects")'>Submit a project</a></li>
+                            @{ Html.RenderAction("IsAdmin", "Layout"); }
+                        </ul>
+                    </li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li>
+                            @Html.ActionLink("Configurations", "Index", "Configurations")
+                        </li>
+                    }
                     @Html.Partial("_LoginPartial")
                 </ul>
-               
-            </div>
-               
-                
-            </div>
+            </nav>
+         
         </div>
- 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-      
-    </div>
+        @RenderSection("navbar", required: false)
+    </header>
+
+
+
+    @RenderBody()
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/Shared")
-    @Html.Partial("~/Views/Shared/_InfoModals.cshtml");
+    @Html.Partial("~/Views/Shared/_InfoModals.cshtml")
 
     @RenderSection("scripts", required: false)
-   
-        <div id="push"></div>
-    </div>
-    <div id="footer">
-        <div id="images">
-            <img src="~/Content/img/eap.png" class="img_logotype_eap" />
-            <img src="~/Content/img/cfea.png" class="img_logotype_cfea" />
-            <img src="~/Content/img/gpp.png" class="img_logotype_gpp" />
+
+    <!-- Site footer -->
+    <div class="bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <a href="#">
+                        <img class="img-responsive img1" src="~/Content/img/gpp.png" />
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="#">
+                        <img class="img-responsive img2" src="~/Content/img/eap.png" />
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="#">
+                        <img class="center img-responsive img3" src="~/Content/img/cfea.png" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="row copyright">
+
+                <div class="col-xs-12"><p>Created by EA Poland volunteers</p></div>
+
+            </div>
         </div>
-        <div id="projected_by"><span>website designed by volunteers of EA Poland</span></div>
     </div>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jquerajax")
 </body>
 </html>

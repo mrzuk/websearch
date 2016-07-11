@@ -88,17 +88,51 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Search(SearchModel searchModel,int? page)
         {
-            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId) && p.SuitableLevel_Project.Any(cp=>cp.SuitableLevelId == searchModel.LevelId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title });
+            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId) && p.SuitableLevel_Project.Any(cp=>cp.SuitableLevelId == searchModel.LevelId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title, AddedBy=p.AddedByName,Date=p.Date,Cause=p.Cause_Project.Select(c=>c.Cause.Description).ToList(),Subjects=p.SuitableSubjects_Project.Select(c=>c.SuitableSubject.Description).ToList(),Level=p.SuitableLevel_Project.Select(c=>c.SuitableLevel.Description).ToList() });
+            int pageN = (page ?? 1);
+            ViewBag.Cause = new SelectList(Db.Cause, "Id", "Description");
+            ViewBag.SuitableSubject = new SelectList(Db.SuitableSubject, "Id", "Description");
+            ViewBag.Level = new SelectList(Db.SuitableLevel, "Id", "Description");
+
+            MainSearchResults model = new MainSearchResults();
+            model.SearchModel = new SearchModel();
+            model.SearchResults = projectList.ToPagedList(pageN, 10);
+
+            if(model.SearchResults.Count == 0)
+            {
+
+                TempData["success"] = "Search returned no resutls";
+            }
+
+            return View("SearchResults",model);
+        }
+
+        public ActionResult TakeOnAProject()
+        {
+            ViewBag.Cause = new SelectList(Db.Cause, "Id", "Description");
+            ViewBag.SuitableSubject = new SelectList(Db.SuitableSubject, "Id", "Description");
+
+            SearchModel model = new SearchModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult TakeOnAProject(SearchModel searchModel, int? page)
+        {
+
+            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId) ).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title, AddedBy = p.AddedByName, Date = p.Date, Cause = p.Cause_Project.Select(c => c.Cause.Description).ToList(), Subjects = p.SuitableSubjects_Project.Select(c => c.SuitableSubject.Description).ToList(), Level = p.SuitableLevel_Project.Select(c => c.SuitableLevel.Description).ToList() });
             int pageN = (page ?? 1);
             ViewBag.CauseId = searchModel.CauseId;
             ViewBag.SubjectId = searchModel.SubjectId;
+            
             if (projectList.Count() > 0)
-                return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml", projectList.ToPagedList(pageN, 10));
+                return PartialView("~/Views/Projects/Partials/_SearchTakeOnResult.cshtml", projectList.ToPagedList(pageN,10));
             else
             {
 
                 return new JsonResult() { Data = new { info = "Search returned no results" } };
             }
+
         }
 
         // GET: Projects/Create
@@ -143,6 +177,38 @@ namespace Web.Controllers
                 TempData["error"] = "Error while saving report";
 
             return View(project);
+        }
+
+        public ActionResult SubmitAProject()
+        {
+
+            SubmitAProjectView viewModel = new SubmitAProjectView();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitAProject(SubmitAProjectView model)
+        {
+            try
+            {
+                Configuration configurations = Configuration.Create(Db);
+                EmailMssg mssg = new EmailMssg();
+                mssg.IsHtml = true;
+                mssg.Receivers = new List<string>() { configurations.ContactFormEmail };
+                mssg.SenderAddress = "no-reply@researchforgood.pl";
+                mssg.Subject = "Contact request from " + model.FullName;
+                mssg.TemplateModel = model;
+                mssg.TemplateString = System.IO.File.ReadAllText(Server.MapPath("~/Templates/SubmitAProject.html"));
+
+                EmailSender.Send(configurations, mssg);
+                TempData["success"] = "Your project was successfully submitted";
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = "Error while sending email: " + ex.ToString();
+            }
+            return View();
         }
 
         [HttpPost]

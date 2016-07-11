@@ -258,6 +258,7 @@
     <Compile Include="Models\Email\ApproveRejectModel.cs" />
     <Compile Include="Models\Email\ContactUs.cs" />
     <Compile Include="Models\Email\ExpressInterestEmailModel.cs" />
+    <Compile Include="Models\Email\SubmitProject.cs" />
     <Compile Include="Models\Helpers\ProjectViewHelper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -267,21 +268,27 @@
     <Compile Include="Models\View\DetailsView.cs" />
     <Compile Include="Models\View\ExpressInterestViewModel.cs" />
     <Compile Include="Models\View\IsAdmin.cs" />
+    <Compile Include="Models\View\MainSearchResults.cs" />
     <Compile Include="Models\View\ProjectSearch.cs" />
     <Compile Include="Models\View\ProjectView.cs" />
     <Compile Include="Models\View\SearchModel.cs" />
     <Compile Include="Models\View\SearchResultsModel.cs" />
+    <Compile Include="Models\View\SubmitAProjectView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\books.JPG" />
     <Content Include="Content\img\cfea.png" />
     <Content Include="Content\img\eap.png" />
     <Content Include="Content\img\gpp.png" />
+    <Content Include="Content\img\u0.png" />
     <Content Include="Content\img\u1.png" />
+    <Content Include="Content\img\u27.png" />
     <Content Include="Content\img\u3.png" />
+    <Content Include="Content\img\u31.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site2.css" />
     <Content Include="DAL\WebModel.Context.tt">
@@ -332,6 +339,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Templates\InterestedInProject.html" />
     <Content Include="Templates\ProjectApproved.html" />
+    <Content Include="Templates\SubmitAProject.html" />
     <Content Include="Templates\ProjectRejeceted.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -384,6 +392,10 @@
     <Content Include="Views\Projects\Partials\_ApproveView.cshtml" />
     <Content Include="Views\Projects\Partials\_ProjectDetail.cshtml" />
     <Content Include="Views\Projects\Partials\_ExpressInterest.cshtml" />
+    <Content Include="Views\Projects\SubmitAProject.cshtml" />
+    <Content Include="Views\Projects\TakeOnAproject.cshtml" />
+    <Content Include="Views\Projects\Partials\_SearchTakeOnResult.cshtml" />
+    <Content Include="Views\Projects\SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

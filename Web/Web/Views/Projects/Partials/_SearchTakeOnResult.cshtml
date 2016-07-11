@@ -1,0 +1,44 @@
+﻿@model PagedList.IPagedList<Web.Models.View.SearchResultsModel>
+@using PagedList.Mvc;
+
+
+@using Web.Helpers;
+
+
+<div class="container">
+
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <h3>@Html.DisplayFor(model => item.Title)</h3>
+            <br />
+            <p><strong>Cause: </strong>@string.Join(", ", item.Cause.ToArray())</p>
+            <p><strong>Suitable subjects: </strong>@string.Join(", ", item.Subjects.ToArray())</p>
+            <p><strong>Suitable Level: </strong>@string.Join(", ", item.Level.ToArray())</p>
+            <p><strong>Added by: </strong>@Html.DisplayFor(model => item.AddedBy)</p>
+            <p><strong>Date: </strong>@Html.DisplayFor(model => item.Date)</p>
+            <hr>
+        </div>
+    }
+
+    <div class="row center">
+        View more projects
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("TakeOnAProject",
+    new { page }))
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+    $(".container a").on("click", function (event) {
+        event.preventDefault();
+        var pageNum = this.href.substring(this.href.indexOf("=")+1)
+        $("#page").val(pageNum)
+
+        $("#search").find("form").submit();
+    })
+
+</script>

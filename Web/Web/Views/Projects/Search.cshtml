@@ -6,56 +6,64 @@
     ViewBag.Title = "Search";
 }
 
-<script type="text/javascript">
-    function onSearchComplete(result) {
-        if (result.info) {
-            $('#messageModalInfo').html(result.info);
-            $('#SuccessTitle').html("Search");
-            $('#infoModal').modal("show")
-        }
-        else {
-            $('#searchResults').html(result);
-        }
-    }
 
-</script>
-<div id="search">
-    <h1>What are the biggest questions today?</h1>
+<!-- Middle content section -->
 
-    <h3>Search for research projects that make a difference.</h3>
 
-    @using (Ajax.BeginForm(new AjaxOptions() { OnSuccess = "onSearchComplete" }))
-    {
+<div class="middle">
+    <div class="container">
 
-        <div id="search_options">
-            <table>
-                <tr>
-                    <td>
-                        Choose a subject of study: @Html.DropDownListFor(model => model.SubjectId, (SelectList)ViewBag.SuitableSubject)
-                    </td>
-                    <td>
-                        Choose a cause: @Html.DropDownListFor(model => model.CauseId, (SelectList)ViewBag.Cause)
-                    </td>
+        <div class="content">
 
-                    <td>
-                        Choose level of study: @Html.DropDownListFor(model => model.LevelId, (SelectList)ViewBag.Level)
-                    </td>
-                </tr>
-            </table>
+            <div class="row">
+                <h2>What are the biggest question today?</h2>
+                <p>
+                    Search for research projects<br />
+                    that make a difference.
+                </p>
+            </div>
+            @using (Html.BeginForm("Search", "Projects", FormMethod.Post, new { }))
+            {
+
+                <div class="choose">
+                    <div class="row">
+                        <div class="col-md-4">Choose a cause:</div>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.CauseId, (SelectList)ViewBag.Cause)
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">Choose a subject:</div>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.SubjectId, (SelectList)ViewBag.SuitableSubject)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">Who you are?</div>
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(model => model.LevelId, (SelectList)ViewBag.Level)
+                        </div>
+                    </div>
+                    <input type="hidden" name="page" id="page" value="1" />
+                    <div class="row">
+                        <input type="submit" value="Search" class="btn btn-default" />
+                    </div>
+                </div>
+
+            }
+
+            </div>
         </div>
-        <input type="hidden" name="page" id="page" value="1"/>
-        <div class="form-group">
-            <input type="submit" value="Search" class="btn btn-default" />
-        </div>
-
-    }
-
-    <div id="searchResults">
-
     </div>
 
-</div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jquerajax")
-}
+            <div id="searchResults">
+
+            </div>
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+                @Scripts.Render("~/bundles/jquerajax")
+            }

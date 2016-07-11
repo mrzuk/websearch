@@ -1,0 +1,87 @@
+﻿@model Web.Models.View.SearchModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Navbar{
+    <div class="container nav-container">
+        <h2>
+            Take on a project
+        </h2>
+    </div>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+        function onSearchComplete(result) {
+            if (result.info) {
+                $('#messageModalInfo').html(result.info);
+                $('#SuccessTitle').html("Search");
+                $('#infoModal').modal("show")
+            }
+            else {
+                $('#searchResultsTake').html(result);
+            }
+        }
+
+    </script>
+}
+
+<!-- Middle content section -->
+<div class="section1">
+
+    <div class="container">
+        <div class="row">
+            <p>
+                The task of organising and evaluating the most pressing questions in the world will be completely pointless without you – <strong>the researcher</strong>.
+            </p>
+            <br />
+            <p>
+                Whether you are an undergraduate writing a dissertation, a tenured professor or independent AI researcher, your research really can make a difference. You can discover the answers to the world’s most important questions, and produce research which changes the world.
+            </p>
+            <br />
+            <p>
+                <strong>
+
+                    Take on a project that fits you best!
+                </strong>
+            </p>
+        </div>
+    </div>
+
+    <div class="jumbotron take-on">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>All projects in:</h3>
+                </div>
+                <div id="search">
+                    @using (Ajax.BeginForm(new AjaxOptions() { OnSuccess = "onSearchComplete" }))
+                    {
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(model => model.CauseId, (SelectList)ViewBag.Cause)
+                        </div>
+
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(model => model.SubjectId, (SelectList)ViewBag.SuitableSubject)
+                            </div>
+                            <input type="hidden" name="page" id="page" value="1" />
+                            <div class="col-md-3">
+                                <input class="btn btn-default " type="submit" value="Search" />
+                            </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="searchResultsTake">
+
+    </div>
+
+
+</div>
+
+
+
