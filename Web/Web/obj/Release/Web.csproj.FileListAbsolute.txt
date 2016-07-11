@@ -69,3 +69,7 @@ C:\VSProjects\websearch\Web\Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\VSProjects\websearch\Web\Web\obj\Release\Web.dll
 C:\VSProjects\websearch\Web\Web\obj\Release\Web.pdb
 C:\VSProjects\websearch\Web\Web\obj\Release\Web.csprojResolveAssemblyReference.cache
+C:\VSProjects\websearch\Web\Web\bin\PagedList.dll
+C:\VSProjects\websearch\Web\Web\bin\PagedList.Mvc.dll
+C:\VSProjects\websearch\Web\Web\bin\PagedList.xml
+C:\VSProjects\websearch\Web\Web\bin\PagedList.Mvc.xml

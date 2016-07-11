@@ -398,3 +398,7 @@ select option {
   .h2{
       font-size:15px;
   }
+
+  .configuration{
+      min-height:700px;
+  }

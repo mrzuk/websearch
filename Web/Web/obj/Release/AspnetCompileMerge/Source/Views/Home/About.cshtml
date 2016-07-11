@@ -1,7 +1,108 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
+
+@section navbar{ 
+<div class="container nav-container">
+
+    <h2>
+        <a href="#research">Research for Good</a>/
+        <a href="#whatis">Effective Altruism</a>/
+        <a href="#methodology">Methodology</a>/
+    </h2>
+
+</div>	
 
 
-<p>Connecting altruistic researchers to projects that make a difference..</p>
+}
+<div class="section1">
+    <div class="container">
+        <div id="research" class="row">
+
+            <h2>Research for Good</h2><br />
+            <p>
+                Research for good is a hub for research projects with the potential to have a large social impact.
+            </p>
+            <br />
+            <p>
+                It is our hope that we will be able to connect with researchers at all levels, from undergraduates to professional researchers, and promote and facilitate the study of high impact problems from across a range of disciplines.
+            </p>
+            <br />
+            <p>Research projects listed on EA Research have been assessed using a prioritisation framework that is frequently used within the Effective Altruism movement. For details of how we have assessed projects, see our methodology.</p>
+            <br />
+            <p>We invite students and researchers to contact us about taking on high impact research projects. In some cases, we may be able to connect you with experts in the area to assist you throughout the project. Please see the contact page to get in touch.</p><br />
+            <p>
+                We have attempted to connect with existing EA organisations to solicit their ideas for research projects. We are open to receiving ideas for new research projects from organisations or individuals, which we will then assess and may add to our database.
+            </p><br />
+        </div>
+
+
+        <div id="whatis" class="row">
+
+            <h2>What is Effective Altruism?</h2><br />
+            <p>
+                Put simply, Effective Altruism is about not just doing good, but doing the most good possible.
+            </p>
+            <br />
+            <p>
+                Using moral reasoning, careful research, and calculations, effective altruists are committed to finding out what causes we should be most concerned about, and the most effective ways for individuals to contribute to them.
+            </p>
+            <br />
+            <p>
+                In this short TED Talk, Beth Barnes talks about what can be achieved if we use Effective Altruism to direct our financial resources to the best projects possible. We believe we can achieve a lot if we use Effective Altruism to direct our intellectual resources to the best projects possible, too.
+            </p>
+            <br />
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Diuv3XZQXyc" frameborder="0" allowfullscreen></iframe>
+
+            <br />
+            <br />
+            <p>The philosopher Peter Singer is an advocate of Effective Altruism, and you can watch his introduction <a href="https://www.youtube.com/watch?v=Diuv3XZQXyc" target="_blank">here.</a></p><br />
+            <p>
+                There are organisations which research <a href="https://80000hours.org/" target="_blank">the most effective charities</a> you can donate to, and others which give advice on the best ways you can <a href="https://www.givingwhatwecan.org/" target="_blank">use your career to do good.</a> We believe that research is another area with a huge potential to do good, if we focus on answering the right questions.
+            </p><br />
+        </div>
+
+
+        <div id="methodology" class="row">
+
+            <h2>Our Methodology</h2><br />
+            <p>
+                We will only list research projects which we believe have the very highest potential for doing good.
+            </p>
+            <br />
+            <p>
+                For each research project, we will explain why we believe it is an important question to answer with reference to an established effective altruism framework used by 80,000 Hours, Give Well, and other organisations.
+            </p>
+            <br />
+            <p>
+                The framework is based on three factors:
+            </p>
+            <br />
+
+            <p><strong>Scale: </strong>how many people would benefit, and by how much, by completing the project?</p><br />
+            <p><strong>Tractability: </strong>what is the likelihood that a researcher could make significant progress on this problem?</p><br />
+            <p><strong>Neglectedness: </strong>to what extent has research thus far tended to neglect this problem?</p><br />
+            <p>Sometimes, some of these factors will be based on our best estimates and judgements. In the spirit of effective altruism, we will endeavour to be completely transparent in our assessments of each research project.</p>
+            <br />
+            <br />
+            <br />
+        </div>
+
+
+    </div>
+    </div>
+
+    @section Scripts {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("a").click(function (event) {
+
+                    $('html, body').animate({
+                        scrollTop: $($(this).attr('href')).offset().top
+                    }, 500);
+                    return false;
+                });
+            })
+        </script>
+    }

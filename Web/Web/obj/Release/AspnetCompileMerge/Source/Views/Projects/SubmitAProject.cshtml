@@ -1,0 +1,116 @@
+﻿@model Web.Models.View.SubmitAProjectView
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Navbar{
+    <div class="container nav-container">
+    <h2>
+        Submit a project
+    </h2>
+</div>
+    }
+
+<div class="section1">
+    <div class="container-fluid">
+
+        <div class="container ">
+            <div class="row">
+
+                <h2>
+                    We are continuously searching for new research projects
+                    with high potential to do good.
+                </h2><br />
+                <p>
+                    We speak with bright, enthusiastic researchers who want make a difference and are willing to put in the hours to produce good quality answers to important questions.
+                </p>
+                <br />
+
+                <p>
+                    Whether you are an academic, a policymaker, a member of an effective altruism organisation, or just interested in effective research as a means of doing as much good as possible, we want to hear your ideas for research projects.
+                </p>
+                <br />
+
+                <p>
+                    Our team will assess the potential for your project to do good, explore what work has been done in this area, write a description of the project, and promote it to researchers.
+                </p>
+                <br />
+
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="basic-url">full name</label>
+                    <div class="input-group-lg inputmaly">
+  
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control",aria_describedby = "sizing-addon2" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <label for="basic-url">organization</label>
+                    <div class="input-group-lg inputmaly">
+                        
+                        @Html.EditorFor(model => model.Organization, new { htmlAttributes = new { @class = "form-control", aria_describedby = "sizing-addon2" } })
+                        @Html.ValidationMessageFor(model => model.Organization, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <label for="basic-url">e-mail</label>
+                    <div class="input-group-lg inputmaly">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", aria_describedby = "sizing-addon2" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <label for="basic-url">project area</label>
+                    <div class="input-group-lg">
+                        @Html.EditorFor(model => model.ProjectArea, new { htmlAttributes = new { @class = "form-control", placeholder = "e.g. The causes of reluctance to quantify predictions", aria_describedby = "sizing-addon2" } })
+                        @Html.ValidationMessageFor(model => model.ProjectArea, "", new { @class = "text-danger" })
+            
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <label for="basic-url">project description (min. 200 characters)</label>
+                    <div class="input-group-lg">
+                        @Html.EditorFor(model => model.ProjectDescription, new { htmlAttributes = new { @class = "form-control message", aria_describedby = "sizing-addon2" } })
+                        @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <label for="basic-url">why do you thing it is high impact</label>
+                    <div class="input-group-lg">
+                        @Html.EditorFor(model => model.HighImpact, new { htmlAttributes = new { @class = "form-control", aria_describedby = "sizing-addon2" } })
+                        @Html.ValidationMessageFor(model => model.HighImpact, "", new { @class = "text-danger" })
+                    </div>
+
+                    <br />
+                    <br />
+                    <input id="submitButton" type="submit" value="Submit" class="btn btn-default pull-right" />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+</div>
+

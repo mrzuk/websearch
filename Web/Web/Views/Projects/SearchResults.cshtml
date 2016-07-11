@@ -47,7 +47,7 @@
 <div class="section1">
     <div class="container-fluid">
 
-        <div class="container">
+        <div class="container search-results">
 
             @foreach (var item in Model.SearchResults)
             {
@@ -78,7 +78,7 @@
 
 @section Scripts{
 <script type="text/javascript">
-    $(".container a").on("click", function (event) {
+    $(".search-results a").on("click", function (event) {
         event.preventDefault();
         var pageNum = this.href.substring(this.href.indexOf("=")+1)
         $("#page").val(pageNum)
