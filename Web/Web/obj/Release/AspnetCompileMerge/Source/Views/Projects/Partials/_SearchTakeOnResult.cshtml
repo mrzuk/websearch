@@ -5,7 +5,7 @@
 @using Web.Helpers;
 
 
-<div class="container">
+<div class="container search-result">
 
     @foreach (var item in Model)
     {
@@ -33,7 +33,7 @@
 
 
 <script type="text/javascript">
-    $(".container a").on("click", function (event) {
+    $(".search-result a").on("click", function (event) {
         event.preventDefault();
         var pageNum = this.href.substring(this.href.indexOf("=")+1)
         $("#page").val(pageNum)

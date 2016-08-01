@@ -23,8 +23,8 @@
             </button>
             <nav class="navbar-collapse collapse  pull-right" role="navigation">
                 <ul class="navbar-nav nav">
-                    <li>@Html.ActionLink("Take on project", "TakeOnAProject", "Projects")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Take on a project", "TakeOnAProject", "Projects")</li>
+                    <li>@Html.ActionLink("About us", "About", "Home")</li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Contact us</a>
                         <ul class="dropdown-menu">
@@ -39,7 +39,7 @@
                             @Html.ActionLink("Configurations", "Index", "Configurations")
                         </li>
                     }
-                    @Html.Partial("_LoginPartial")
+                    @*@Html.Partial("_LoginPartial")*@
                 </ul>
             </nav>
          
@@ -63,27 +63,10 @@
     <!-- Site footer -->
     <div class="bottom">
         <div class="container">
-            <div class="row">
-                <div class="col-xs-4">
-                    <a href="#">
-                        <img class="img-responsive img1" src="~/Content/img/gpp.png" />
-                    </a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="#">
-                        <img class="img-responsive img2" src="~/Content/img/eap.png" />
-                    </a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="#">
-                        <img class="center img-responsive img3" src="~/Content/img/cfea.png" />
-                    </a>
-                </div>
-            </div>
 
             <div class="row copyright">
 
-                <div class="col-xs-12"><p>Created by EA Poland volunteers</p></div>
+                <div class="col-xs-12"><p>Designed by <a href="http://apisz.carbonmade.com" target="_blank">Agnieszka Pisz</a>, developed by <a href="http://www.kamilapawlik.pl" target="_blank">Kamila Pawlik </a> and Rafał Żukowski</p></div>
 
             </div>
         </div>

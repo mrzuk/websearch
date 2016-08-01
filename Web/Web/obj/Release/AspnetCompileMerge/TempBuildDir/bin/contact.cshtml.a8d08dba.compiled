@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<preserve resultType="2" virtualPath="/Views/Home/Contact.cshtml" hash="ffffffffc50725c1" filehash="fffff55686c0867d" flags="110000" assembly="App_Web_paug50zb" type="ASP._Page_Views_Home_Contact_cshtml">
-    <filedeps>
-        <filedep name="/Views/Home/Contact.cshtml" />
-    </filedeps>
-</preserve>

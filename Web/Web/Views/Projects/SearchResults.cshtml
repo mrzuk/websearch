@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "SearchResults";
+    ViewBag.Title = "Search Results";
 }
 
 
@@ -10,7 +10,7 @@
     <div class="container nav-container">
 
     <div id="search">
-        @using (Html.BeginForm("Search", "Projects", FormMethod.Post, new { }))
+        @using (Ajax.BeginForm("SearchAsync", "Projects", new AjaxOptions() { OnSuccess = "OnSearchResults" }))
         {
             <div class="row">
                 <div class="col-md-4">
@@ -49,20 +49,10 @@
 
         <div class="container search-results">
 
-            @foreach (var item in Model.SearchResults)
-            {
-                <div class="row">
-                    <h3>@Html.DisplayFor(model => item.Title)</h3>
-                    <br />
-                    <p><strong>Cause: </strong>@string.Join(", ", item.Cause.ToArray())</p>
-                    <p><strong>Suitable subjects: </strong>@string.Join(", ", item.Subjects.ToArray())</p>
-                    <p><strong>Suitable Level: </strong>@string.Join(", ", item.Level.ToArray())</p>
-                    <p><strong>Added by: </strong>@Html.DisplayFor(model => item.AddedBy)</p>
-                    <p><strong>Date: </strong>@Html.DisplayFor(model => item.Date)</p>
-                    <hr>
-                </div>
-            }
-
+            <div id="search-results">
+                @Html.Partial("~/Views/Projects/Partials/_SearchResults.cshtml", Model);
+            </div>
+           
             <div class="row center">
                 View more projects
                 Page @(Model.SearchResults.PageCount < Model.SearchResults.PageNumber ? 0 : Model.SearchResults.PageNumber) of @Model.SearchResults.PageCount
@@ -85,6 +75,17 @@
 
         $("#search").find("form").submit();
     })
+
+    function OnSearchResults(result) {
+        if (result.info) {
+            $('#messageModalInfo').html(result.info);
+            $('#SuccessTitle').html("Search");
+            $('#infoModal').modal("show")
+        }
+        else {
+            $('#search-results').html(result);
+        }
+    }
 
 </script>
 }

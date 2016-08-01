@@ -13,11 +13,11 @@ namespace Web.Models.Email
         [DisplayName("Full Name")]
         public string FullName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
         [DisplayName("Things you want to write")]
         public string MessageContent { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "This field is required")]
         [DisplayName("Your email")]
         public string Email { get; set; }
     }

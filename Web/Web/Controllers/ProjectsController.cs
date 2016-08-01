@@ -107,11 +107,32 @@ namespace Web.Controllers
             return View("SearchResults",model);
         }
 
+
+        [HttpPost]
+        public ActionResult SearchAsync(SearchModel searchModel, int? page)
+        {
+            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId) && p.SuitableLevel_Project.Any(cp => cp.SuitableLevelId == searchModel.LevelId)).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title, AddedBy = p.AddedByName, Date = p.Date, Cause = p.Cause_Project.Select(c => c.Cause.Description).ToList(), Subjects = p.SuitableSubjects_Project.Select(c => c.SuitableSubject.Description).ToList(), Level = p.SuitableLevel_Project.Select(c => c.SuitableLevel.Description).ToList() });
+            int pageN = (page ?? 1);
+            ViewBag.Cause = new SelectList(Db.Cause, "Id", "Description");
+            ViewBag.SuitableSubject = new SelectList(Db.SuitableSubject, "Id", "Description");
+            ViewBag.Level = new SelectList(Db.SuitableLevel, "Id", "Description");
+
+            MainSearchResults model = new MainSearchResults();
+            model.SearchModel = new SearchModel();
+            model.SearchResults = projectList.ToPagedList(pageN, 10);
+
+            if (model.SearchResults.Count == 0)
+            {
+                return new JsonResult {  Data = new { info = "Search returned no results" } };
+            }
+            return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml",model);
+        }
+
         public ActionResult TakeOnAProject()
         {
             ViewBag.Cause = new SelectList(Db.Cause, "Id", "Description");
             ViewBag.SuitableSubject = new SelectList(Db.SuitableSubject, "Id", "Description");
-
+            ViewBag.SuitableLevel = new SelectList(Db.SuitableLevel, "Id", "Description");
             SearchModel model = new SearchModel();
             return View(model);
         }
@@ -120,11 +141,12 @@ namespace Web.Controllers
         public ActionResult TakeOnAProject(SearchModel searchModel, int? page)
         {
 
-            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId) ).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title, AddedBy = p.AddedByName, Date = p.Date, Cause = p.Cause_Project.Select(c => c.Cause.Description).ToList(), Subjects = p.SuitableSubjects_Project.Select(c => c.SuitableSubject.Description).ToList(), Level = p.SuitableLevel_Project.Select(c => c.SuitableLevel.Description).ToList() });
+            var projectList = Db.Project.Where(p => p.IsApproved && p.Cause_Project.Any(cp => cp.CauseId == searchModel.CauseId) && p.SuitableLevel_Project.Any(sl=>sl.SuitableLevelId ==searchModel.LevelId) && p.SuitableSubjects_Project.Any(cp => cp.SuitableSubjectId == searchModel.SubjectId) ).ToList().Select(p => new SearchResultsModel { Id = p.Id, Title = p.Title, AddedBy = p.AddedByName, Date = p.Date, Cause = p.Cause_Project.Select(c => c.Cause.Description).ToList(), Subjects = p.SuitableSubjects_Project.Select(c => c.SuitableSubject.Description).ToList(), Level = p.SuitableLevel_Project.Select(c => c.SuitableLevel.Description).ToList() });
             int pageN = (page ?? 1);
             ViewBag.CauseId = searchModel.CauseId;
             ViewBag.SubjectId = searchModel.SubjectId;
-            
+            ViewBag.LevelId = searchModel.LevelId;
+
             if (projectList.Count() > 0)
                 return PartialView("~/Views/Projects/Partials/_SearchTakeOnResult.cshtml", projectList.ToPagedList(pageN,10));
             else
