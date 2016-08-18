@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="rafalzukowski-001-site1" tags="IisApp">
+  <parameter name="IIS Web Application Name" description="" value="researchgood-001-site1" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\VSProjects\\websearch\\Web\\Web\\obj\\Release\\Package\\PackageTmp$" />
     <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\VSProjects\\websearch\\Web\\Web\\obj\\Release\\Package\\PackageTmp$" />
   </parameter>
-  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=SQL5026.Smarterasp.net;Initial Catalog=DB_9FEA4B_rafalzukowski;User Id=DB_9FEA4B_rafalzukowski_admin;Password=Nirvana@1;Integrated Security=False" tags="">
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=SQL5025.Smarterasp.net;Initial Catalog=DB_A0ADB2_rafalzukowski;User Id=DB_A0ADB2_rafalzukowski_admin;Password=researchgood1;Integrated Security=False" tags="">
     <parameterEntry kind="XmlFile" scope="C:\\VSProjects\\websearch\\Web\\Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
   </parameter>
-  <parameter name="WebDbEntities-Web.config Connection String" description="" value="metadata=res://*/DAL.WebModel.csdl|res://*/DAL.WebModel.ssdl|res://*/DAL.WebModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=SQL5026.Smarterasp.net;User Id=DB_9FEA4B_rafalzukowski_admin;Password=Nirvana@1;initial catalog=DB_9FEA4B_rafalzukowski;integrated security=False;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="">
+  <parameter name="WebDbEntities-Web.config Connection String" description="" value="metadata=res://*/DAL.WebModel.csdl|res://*/DAL.WebModel.ssdl|res://*/DAL.WebModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=SQL5025.Smarterasp.net;Initial Catalog=DB_A0ADB2_rafalzukowski;User Id=DB_A0ADB2_rafalzukowski_admin;Password=researchgood1;integrated security=False;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="">
     <parameterEntry kind="XmlFile" scope="C:\\VSProjects\\websearch\\Web\\Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='WebDbEntities']/@connectionString" />
   </parameter>
 </parameters>

@@ -39,7 +39,7 @@
                             @Html.ActionLink("Configurations", "Index", "Configurations")
                         </li>
                     }
-                    @*@Html.Partial("_LoginPartial")*@
+                    
                 </ul>
             </nav>
          
@@ -66,11 +66,16 @@
 
             <div class="row copyright">
 
-                <div class="col-xs-12"><p>Designed by <a href="http://apisz.carbonmade.com" target="_blank">Agnieszka Pisz</a>, developed by <a href="http://www.kamilapawlik.pl" target="_blank">Kamila Pawlik </a> and Rafał Żukowski</p></div>
-
+                <div class="col-xs-11"><p>Designed by <a href="http://apisz.carbonmade.com" target="_blank">Agnieszka Pisz</a>, developed by <a href="http://www.kamilapawlik.pl" target="_blank">Kamila Pawlik</a> and <a href="">Rafał Żukowski</a></p></div>
+                
             </div>
+            <div class="admin-panel">
+                @Html.Partial("_LoginPartial")
+            </div>
+        
         </div>
-    </div>
+       
+</div>
 
     @Scripts.Render("~/bundles/jqueryval")
 

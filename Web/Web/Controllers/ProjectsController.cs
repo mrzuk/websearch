@@ -98,12 +98,6 @@ namespace Web.Controllers
             model.SearchModel = new SearchModel();
             model.SearchResults = projectList.ToPagedList(pageN, 10);
 
-            if(model.SearchResults.Count == 0)
-            {
-
-                TempData["success"] = "Search returned no resutls";
-            }
-
             return View("SearchResults",model);
         }
 
@@ -121,10 +115,6 @@ namespace Web.Controllers
             model.SearchModel = new SearchModel();
             model.SearchResults = projectList.ToPagedList(pageN, 10);
 
-            if (model.SearchResults.Count == 0)
-            {
-                return new JsonResult {  Data = new { info = "Search returned no results" } };
-            }
             return PartialView("~/Views/Projects/Partials/_SearchResults.cshtml",model);
         }
 
@@ -147,13 +137,7 @@ namespace Web.Controllers
             ViewBag.SubjectId = searchModel.SubjectId;
             ViewBag.LevelId = searchModel.LevelId;
 
-            if (projectList.Count() > 0)
-                return PartialView("~/Views/Projects/Partials/_SearchTakeOnResult.cshtml", projectList.ToPagedList(pageN,10));
-            else
-            {
-
-                return new JsonResult() { Data = new { info = "Search returned no results" } };
-            }
+            return PartialView("~/Views/Projects/Partials/_SearchTakeOnResult.cshtml", projectList.ToPagedList(pageN,10));
 
         }
 

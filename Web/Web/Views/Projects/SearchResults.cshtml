@@ -9,38 +9,38 @@
 @section Navbar{
     <div class="container nav-container">
 
-    <div id="search">
-        @using (Ajax.BeginForm("SearchAsync", "Projects", new AjaxOptions() { OnSuccess = "OnSearchResults" }))
-        {
-            <div class="row">
-                <div class="col-md-4">
-                    <span class="h2">
-                        Search Results
-                    </span>
-                </div>
+        <div id="search">
+            @using (Ajax.BeginForm("SearchAsync", "Projects", new AjaxOptions() { OnSuccess = "OnSearchResults" }))
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="h2">
+                            Search Results
+                        </span>
+                    </div>
 
-                <div class="col-md-2">
-                    @Html.DropDownListFor(model => model.SearchModel.CauseId, (SelectList)ViewBag.Cause)
-                </div>
-                <div class="col-md-2">
-                    @Html.DropDownListFor(model => model.SearchModel.SubjectId, (SelectList)ViewBag.SuitableSubject)
-                </div>
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(model => model.SearchModel.CauseId, (SelectList)ViewBag.Cause)
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(model => model.SearchModel.SubjectId, (SelectList)ViewBag.SuitableSubject)
+                    </div>
 
-                <div class="col-md-2">
-                    @Html.DropDownListFor(model => model.SearchModel.LevelId, (SelectList)ViewBag.Level)
+                    <div class="col-md-2">
+                        @Html.DropDownListFor(model => model.SearchModel.LevelId, (SelectList)ViewBag.Level)
+                    </div>
+                    <input type="hidden" name="page" id="page" value="1" />
+                    <div class="col-md-2">
+                        <button class="btn btn-default " type="submit">Search</button>
+                    </div>
                 </div>
-                <input type="hidden" name="page" id="page" value="1" />
-                <div class="col-md-2">
-                    <button class="btn btn-default " type="submit">Search</button>
-                </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
 
 
 
-   
+
 
 }
 
@@ -50,43 +50,45 @@
         <div class="container search-results">
 
             <div id="search-results">
-                @Html.Partial("~/Views/Projects/Partials/_SearchResults.cshtml", Model);
+                @Html.Partial("~/Views/Projects/Partials/_SearchResults.cshtml", Model)
             </div>
-           
-            <div class="row center">
-                View more projects
-                Page @(Model.SearchResults.PageCount < Model.SearchResults.PageNumber ? 0 : Model.SearchResults.PageNumber) of @Model.SearchResults.PageCount
 
-                @Html.PagedListPager(Model.SearchResults, page => Url.Action("Search",new { page }))
-            </div>
+            @if (Model.SearchResults.Count > 0 && Model.SearchResults.PageCount>1)
+            {
+                <div class="row center">
+                    View more projects
+                    Page @(Model.SearchResults.PageCount < Model.SearchResults.PageNumber ? 0 : Model.SearchResults.PageNumber) of @Model.SearchResults.PageCount
+
+                    @Html.PagedListPager(Model.SearchResults, page => Url.Action("Search", new { page }))
+                </div>
+
+            }
         </div>
 
-
-
+        </div>
     </div>
-</div>
 
-@section Scripts{
-<script type="text/javascript">
-    $(".search-results a").on("click", function (event) {
-        event.preventDefault();
-        var pageNum = this.href.substring(this.href.indexOf("=")+1)
-        $("#page").val(pageNum)
+    @section Scripts{
+        <script type="text/javascript">
+            $(".search-results a").on("click", function (event) {
+                event.preventDefault();
+                var pageNum = this.href.substring(this.href.indexOf("=") + 1)
+                $("#page").val(pageNum)
 
-        $("#search").find("form").submit();
-    })
+                $("#search").find("form").submit();
+            })
 
-    function OnSearchResults(result) {
-        if (result.info) {
-            $('#messageModalInfo').html(result.info);
-            $('#SuccessTitle').html("Search");
-            $('#infoModal').modal("show")
-        }
-        else {
-            $('#search-results').html(result);
-        }
+            function OnSearchResults(result) {
+                if (result.info) {
+                    $('#messageModalInfo').html(result.info);
+                    $('#SuccessTitle').html("Search");
+                    $('#infoModal').modal("show")
+                }
+                else {
+                    $('#search-results').html(result);
+                }
+            }
+
+        </script>
     }
-
-</script>
-}
 

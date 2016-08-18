@@ -2,7 +2,8 @@
 @using PagedList.Mvc;
 @using Web.Helpers;
 
-@foreach (var item in Model.SearchResults)
+@if (Model.SearchResults.Count > 0) { 
+foreach (var item in Model.SearchResults)
             {
     <div class="row">
         <h3>@Html.DisplayFor(model => item.Title)</h3>
@@ -14,4 +15,11 @@
         <p><strong>Date: </strong>@Html.DisplayFor(model => item.Date)</p>
         <hr>
     </div>
+    }
 }
+else
+{
+    <div class="centered_content">        <h4>Search returned no results</h4></div>
+}
+
+

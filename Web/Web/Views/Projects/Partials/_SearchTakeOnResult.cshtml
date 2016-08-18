@@ -7,7 +7,8 @@
 
 <div class="container search-result">
 
-    @foreach (var item in Model)
+    @if( Model.Count > 0) { 
+    foreach (var item in Model)
     {
         <div class="row">
             <h3>@Html.DisplayFor(model => item.Title)</h3>
@@ -19,16 +20,24 @@
             <p><strong>Date: </strong>@Html.DisplayFor(model => item.Date)</p>
             <hr>
         </div>
+        }
+    }
+    else
+    {
+        <div class="centered_content"> <h4>Search returned no results</h4></div>
+
     }
 
-    <div class="row center">
-        View more projects
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @if (Model.Count > 0 && Model.PageCount > 1)
+    {
+        <div class="row center">
+            View more projects
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("TakeOnAProject",
+            @Html.PagedListPager(Model, page => Url.Action("TakeOnAProject",
     new { page }))
-    </div>
-
+        </div>
+    }
 </div>
 
 
